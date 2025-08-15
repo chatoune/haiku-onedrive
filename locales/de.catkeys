@@ -1,0 +1,30 @@
+1	german	x-vnd.HaikuOneDrive	0
+OneDrive daemon starting	OneDriveDaemon		OneDrive Daemon wird gestartet
+OneDrive daemon shutting down	OneDriveDaemon		OneDrive Daemon wird beendet
+OneDrive daemon ready to run	OneDriveDaemon		OneDrive Daemon ist betriebsbereit
+OneDrive daemon quit requested	OneDriveDaemon		OneDrive Daemon Beenden angefordert
+OneDrive daemon about requested	OneDriveDaemon		OneDrive Daemon Info angefordert
+Initializing OneDrive daemon	OneDriveDaemon		OneDrive Daemon wird initialisiert
+OneDrive daemon initialized successfully	OneDriveDaemon		OneDrive Daemon erfolgreich initialisiert
+Cleaning up OneDrive daemon	OneDriveDaemon		OneDrive Daemon wird bereinigt
+Starting sync	OneDriveDaemon		Synchronisation wird gestartet
+Stopping sync	OneDriveDaemon		Synchronisation wird gestoppt
+Pausing sync	OneDriveDaemon		Synchronisation wird pausiert
+Forcing immediate sync	OneDriveDaemon		Sofortige Synchronisation erzwingen
+Sync already running	OneDriveDaemon		Synchronisation läuft bereits
+Sync already stopped	OneDriveDaemon		Synchronisation bereits gestoppt
+Sync not running	OneDriveDaemon		Synchronisation läuft nicht
+Loading settings	OneDriveDaemon		Einstellungen werden geladen
+Saving settings	OneDriveDaemon		Einstellungen werden gespeichert
+Applying settings	OneDriveDaemon		Einstellungen werden angewendet
+Sync state updated	OneDriveDaemon		Synchronisationsstatus aktualisiert
+Authentication required	OneDriveDaemon		Authentifizierung erforderlich
+Authentication succeeded	OneDriveDaemon		Authentifizierung erfolgreich
+Authentication failed	OneDriveDaemon		Authentifizierung fehlgeschlagen
+Network available	OneDriveDaemon		Netzwerk verfügbar
+Network unavailable	OneDriveDaemon		Netzwerk nicht verfügbar
+Sync status changed	OneDriveDaemon		Synchronisationsstatus geändert
+File conflict detected	OneDriveDaemon		Dateikonflikt erkannt
+Settings changed	OneDriveDaemon		Einstellungen geändert
+Components initialized (stubs)	OneDriveDaemon		Komponenten initialisiert (Platzhalter)
+Components cleaned up (stubs)	OneDriveDaemon		Komponenten bereinigt (Platzhalter)

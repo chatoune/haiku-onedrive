@@ -1,0 +1,65 @@
+/**
+ * @file test_config.h.in
+ * @brief Test configuration header template
+ * @author Haiku OneDrive Team
+ * @version 1.0.0
+ * @date 2025-08-14
+ * 
+ * Configuration header for test builds, populated by CMake.
+ */
+
+#ifndef TEST_CONFIG_H
+#define TEST_CONFIG_H
+
+// Project information
+#define ONEDRIVE_VERSION_MAJOR @ONEDRIVE_VERSION_MAJOR@
+#define ONEDRIVE_VERSION_MINOR @ONEDRIVE_VERSION_MINOR@
+#define ONEDRIVE_VERSION_PATCH @ONEDRIVE_VERSION_PATCH@
+#define ONEDRIVE_VERSION_STRING "@ONEDRIVE_VERSION_STRING@"
+
+// Build configuration
+#define CMAKE_BUILD_TYPE "@CMAKE_BUILD_TYPE@"
+#define CMAKE_CXX_COMPILER "@CMAKE_CXX_COMPILER@"
+#define CMAKE_CXX_FLAGS "@CMAKE_CXX_FLAGS@"
+
+// Test configuration
+#define TEST_BUILD_DATE "@BUILD_DATE@"
+#define TEST_BUILD_TIME "@BUILD_TIME@"
+#define TEST_SOURCE_DIR "@CMAKE_SOURCE_DIR@"
+#define TEST_BINARY_DIR "@CMAKE_BINARY_DIR@"
+
+// Test framework configuration
+#cmakedefine CPPUNIT_FOUND
+#cmakedefine USE_SIMPLE_TEST_FRAMEWORK
+
+// Optional testing tools
+#cmakedefine GCOV_FOUND
+#cmakedefine VALGRIND_FOUND
+
+// Test paths and files
+#define TEST_DATA_DIR "@CMAKE_CURRENT_SOURCE_DIR@/data"
+#define TEST_OUTPUT_DIR "@CMAKE_CURRENT_BINARY_DIR@/output"
+#define TEST_TEMP_DIR "/tmp/onedrive_tests"
+
+// Test client configuration (for development)
+#define TEST_CLIENT_ID "test-client-id-12345"
+#define TEST_REDIRECT_URI "http://localhost:8080/callback"
+#define TEST_AUTH_CODE "test-authorization-code"
+#define TEST_ACCESS_TOKEN "test-access-token"
+#define TEST_REFRESH_TOKEN "test-refresh-token"
+
+// Test timeouts (in microseconds)
+#define TEST_DEFAULT_TIMEOUT 5000000    // 5 seconds
+#define TEST_NETWORK_TIMEOUT 10000000   // 10 seconds
+#define TEST_AUTH_TIMEOUT 30000000      // 30 seconds
+
+// Test file sizes and limits
+#define TEST_MAX_FILE_SIZE (10 * 1024 * 1024)  // 10 MB
+#define TEST_CHUNK_SIZE (64 * 1024)             // 64 KB
+
+// Development mode flags
+#define DEVELOPMENT_MODE 1
+#define SIMULATE_NETWORK_REQUESTS 1
+#define MOCK_AUTHENTICATION 1
+
+#endif // TEST_CONFIG_H

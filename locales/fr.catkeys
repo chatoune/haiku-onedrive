@@ -1,0 +1,30 @@
+1	french	x-vnd.HaikuOneDrive	0
+OneDrive daemon starting	OneDriveDaemon		Démarrage du démon OneDrive
+OneDrive daemon shutting down	OneDriveDaemon		Arrêt du démon OneDrive
+OneDrive daemon ready to run	OneDriveDaemon		Démon OneDrive prêt à fonctionner
+OneDrive daemon quit requested	OneDriveDaemon		Arrêt du démon OneDrive demandé
+OneDrive daemon about requested	OneDriveDaemon		À propos du démon OneDrive demandé
+Initializing OneDrive daemon	OneDriveDaemon		Initialisation du démon OneDrive
+OneDrive daemon initialized successfully	OneDriveDaemon		Démon OneDrive initialisé avec succès
+Cleaning up OneDrive daemon	OneDriveDaemon		Nettoyage du démon OneDrive
+Starting sync	OneDriveDaemon		Démarrage de la synchronisation
+Stopping sync	OneDriveDaemon		Arrêt de la synchronisation
+Pausing sync	OneDriveDaemon		Pause de la synchronisation
+Forcing immediate sync	OneDriveDaemon		Forcer la synchronisation immédiate
+Sync already running	OneDriveDaemon		Synchronisation déjà en cours
+Sync already stopped	OneDriveDaemon		Synchronisation déjà arrêtée
+Sync not running	OneDriveDaemon		Synchronisation non active
+Loading settings	OneDriveDaemon		Chargement des paramètres
+Saving settings	OneDriveDaemon		Sauvegarde des paramètres
+Applying settings	OneDriveDaemon		Application des paramètres
+Sync state updated	OneDriveDaemon		État de synchronisation mis à jour
+Authentication required	OneDriveDaemon		Authentification requise
+Authentication succeeded	OneDriveDaemon		Authentification réussie
+Authentication failed	OneDriveDaemon		Authentification échouée
+Network available	OneDriveDaemon		Réseau disponible
+Network unavailable	OneDriveDaemon		Réseau indisponible
+Sync status changed	OneDriveDaemon		État de synchronisation modifié
+File conflict detected	OneDriveDaemon		Conflit de fichier détecté
+Settings changed	OneDriveDaemon		Paramètres modifiés
+Components initialized (stubs)	OneDriveDaemon		Composants initialisés (ébauches)
+Components cleaned up (stubs)	OneDriveDaemon		Composants nettoyés (ébauches)

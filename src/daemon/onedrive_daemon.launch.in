@@ -1,0 +1,41 @@
+# Haiku Launch Configuration for OneDrive Daemon
+# This file configures how the OneDrive daemon is launched by the system
+
+service onedrive_daemon {
+	# Daemon executable path
+	exec /system/servers/onedrive_daemon
+	
+	# Launch conditions
+	launch on_demand
+	
+	# Dependencies
+	requires deskbar_running
+	requires network_available
+	
+	# Environment
+	env HOME %h
+	env TMPDIR /tmp
+	
+	# Resource limits
+	limit memory 256MB
+	limit cpu 10%
+	
+	# Logging
+	stdout syslog
+	stderr syslog
+	
+	# User context
+	user desktop
+	group desktop
+	
+	# Restart policy
+	restart on_failure
+	restart_delay 5s
+	max_restarts 3
+	
+	# Description
+	description "OneDrive synchronization daemon for Haiku OS"
+	
+	# Version
+	version @PROJECT_VERSION@
+}
