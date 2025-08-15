@@ -24,10 +24,10 @@
 #include <queue>
 #include <vector>
 
-namespace OneDrive {
-
 // Forward declaration
 class OneDriveAPI;
+
+namespace OneDrive {
 
 /**
  * @brief Connection state

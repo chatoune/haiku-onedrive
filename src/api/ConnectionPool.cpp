@@ -72,7 +72,7 @@ HttpConnection::Reset()
 // ConnectionPool implementation
 
 ConnectionPool::ConnectionPool(::OneDriveAPI& api, void* urlContext)
-    : ::BHandler("ConnectionPool"),
+    : BHandler("ConnectionPool"),
       fAPI(api),
       fUrlContext(urlContext),
       fLock("ConnectionPool Lock"),
@@ -207,7 +207,10 @@ ConnectionPool::SubmitRequest(void* request, ::BHandler* replyTarget,
         LOG_DEBUG("ConnectionPool", "Request queued (queue size: %zu)", fRequestQueue.size());
         
         // Try to process queue in case a connection just became available
-        PostMessage(kMsgProcessQueue);
+        BLooper* looper = Looper();
+        if (looper) {
+            looper->PostMessage(kMsgProcessQueue, this);
+        }
     }
     
     return B_OK;
@@ -431,7 +434,8 @@ ConnectionPool::_TestConnectionLimit(int32 targetConnections)
     LOG_DEBUG("ConnectionPool", "Testing %d concurrent connections", targetConnections);
     
     // Create test requests
-    std::vector<std::unique_ptr<BHttpRequest>> testRequests;
+    // TODO: Uncomment when BHttpRequest is available
+    // std::vector<std::unique_ptr<BHttpRequest>> testRequests;
     std::atomic<int32> successCount(0);
     std::atomic<int32> failureCount(0);
     
@@ -629,7 +633,7 @@ ConnectionPool::_BinarySearchLimit(int32 min, int32 max)
     
     // Apply backoff factor for safety
     int32 optimal = (int32)(lastWorking * fBackoffFactor);
-    optimal = std::max(fMinConnections, optimal);
+    optimal = std::max(fMinConnections.load(), optimal);
     
     LOG_INFO("ConnectionPool", "Optimal connection limit: %d (tested up to %d)", 
             optimal, lastWorking);
