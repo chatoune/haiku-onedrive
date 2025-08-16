@@ -74,56 +74,26 @@ This document captures all architectural decisions, design patterns, and technic
 
 ## System Architecture
 
+> **Note**: For better formatted diagrams optimized for monospace fonts, see [ARCHITECTURE_DIAGRAMS.md](ARCHITECTURE_DIAGRAMS.md)
+
 ### High-Level Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│                              User Interface Layer                         │
-├─────────────────────────────────────────────────────────────────────────┤
-│  ┌─────────────────┐  ┌──────────────────┐  ┌───────────────────────┐ │
-│  │   Preferences   │  │  Tracker Add-on  │  │   Status Monitor      │ │
-│  │   Application   │  │  (OneDrive.so)   │  │   (Deskbar Icon)     │ │
-│  └────────┬────────┘  └────────┬─────────┘  └──────────┬────────────┘ │
-│           │                     │                         │              │
-│           └─────────────────────┴─────────────────────────┘              │
-│                                 │                                        │
-│                         BMessage Protocol                                │
-│                                 │                                        │
-├─────────────────────────────────────────────────────────────────────────┤
-│                           Core Service Layer                             │
-├─────────────────────────────────────────────────────────────────────────┤
-│  ┌─────────────────────────────▼────────────────────────────────────┐  │
-│  │                     OneDrive Daemon (BApplication)                │  │
-│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐  │  │
-│  │  │ Message      │  │   Service    │  │    Node Monitor      │  │  │
-│  │  │ Handler      │  │   Manager    │  │    (File Watcher)    │  │  │
-│  │  └──────┬───────┘  └──────┬───────┘  └──────────┬───────────┘  │  │
-│  │         │                  │                      │              │  │
-│  │  ┌──────▼──────────────────▼──────────────────────▼─────────┐  │  │
-│  │  │                    Core Services Manager                  │  │  │
-│  │  └───────────────────────────┬───────────────────────────────┘  │  │
-│  └──────────────────────────────┼───────────────────────────────────┘  │
-│                                 │                                        │
-│  ┌──────────────────────────────▼────────────────────────────────────┐  │
-│  │                        Service Components                          │  │
-│  │  ┌───────────────┐  ┌───────────────┐  ┌────────────────────┐  │  │
-│  │  │ Authentication│  │ Sync Engine   │  │  Cache Manager     │  │  │
-│  │  │ Service       │  │ (BLooper)     │  │  (SQLite + Files) │  │  │
-│  │  └───────┬───────┘  └───────┬───────┘  └─────────┬──────────┘  │  │
-│  │          │                   │                     │             │  │
-│  │  ┌───────▼───────────────────▼─────────────────────▼─────────┐  │  │
-│  │  │              OneDrive API Client (BHttpSession)           │  │  │
-│  │  └────────────────────────────┬───────────────────────────────┘  │  │
-│  └──────────────────────────────┼────────────────────────────────────┘  │
-├─────────────────────────────────┼────────────────────────────────────────┤
-│                    Storage & Persistence Layer                           │
-├─────────────────────────────────┼────────────────────────────────────────┤
-│  ┌──────────────┐  ┌────────────▼────────┐  ┌─────────────────────────┐│
-│  │  BKeyStore   │  │   File System       │  │   SQLite Database       ││
-│  │  (Tokens)    │  │   (Sync Folder)     │  │   (Metadata Cache)      ││
-│  └──────────────┘  └─────────────────────┘  └─────────────────────────┘│
-└─────────────────────────────────────────────────────────────────────────┘
-```
+The system follows a three-layer architecture:
+
+1. **User Interface Layer**
+   - Preferences Application (standalone BApplication)
+   - Tracker Add-on (OneDrive.so shared library)
+   - Status Monitor (Deskbar replicant)
+
+2. **Core Service Layer**
+   - OneDrive Daemon (central BApplication service)
+   - Service Components (Authentication, Sync Engine, Cache Manager)
+   - API Client with Connection Pool
+
+3. **Storage & Persistence Layer**
+   - BKeyStore for secure token storage
+   - File System for synced content
+   - SQLite database for metadata
 
 ### Detailed Component Design
 
@@ -304,87 +274,10 @@ class ConnectionPool {
 
 ### Data Flow Architecture
 
-#### 1. Authentication Flow
-```
-┌─────────────┐     BMessage      ┌──────────────┐
-│ Preferences ├──────────────────>│    Daemon    │
-│     App     │   MSG_AUTHENTICATE │              │
-└─────────────┘                    └──────┬───────┘
-                                          │
-                                    ┌─────▼────────┐
-                                    │Auth Service  │
-                                    │              │
-                                    └─────┬────────┘
-                                          │ Launch Browser
-                                    ┌─────▼────────┐
-                                    │ Web Browser  │
-                                    │ (OAuth2)     │
-                                    └─────┬────────┘
-                                          │ Redirect
-                                    ┌─────▼────────┐
-                                    │Token Manager │
-                                    │ (BKeyStore)  │
-                                    └──────────────┘
-```
-
-#### 2. File Synchronization Flow (With Parallel Connections)
-```
-Local Changes:
-┌────────────┐  BNodeMonitor  ┌──────────────┐  Queue  ┌─────────────┐
-│   File     ├───────────────>│ File Monitor ├────────>│ Sync Engine │
-│   System   │   B_STAT_CHANGED│              │         │             │
-└────────────┘                 └──────────────┘         └──────┬──────┘
-                                                               │
-                                                    ┌──────────▼──────────┐
-                                                    │  Request Dispatcher │
-                                                    │  (Load Balancer)    │
-                                                    └─────────┬───────────┘
-                                                              │
-                                     ┌────────────────────────┼────────────────────────┐
-                                     │                        │                        │
-                               ┌─────▼──────┐          ┌─────▼──────┐          ┌─────▼──────┐
-                               │ Connection │          │ Connection │          │ Connection │
-                               │    Pool    │          │    Pool    │          │    Pool    │
-                               │ Session 1  │          │ Session 2  │          │ Session 3  │
-                               └─────┬──────┘          └─────┬──────┘          └─────┬──────┘
-                                     │ HTTPS                 │ HTTPS                 │ HTTPS
-                                     └───────────────────────┼───────────────────────┘
-                                                             │
-                                                       ┌─────▼──────┐
-                                                       │ Graph API  │
-                                                       │ (Parallel) │
-                                                       └────────────┘
-
-Remote Changes:
-┌────────────┐    Poll/Delta    ┌──────────────┐  Queue  ┌─────────────┐
-│ Graph API  ├─────────────────>│Remote Monitor├────────>│ Sync Engine │
-│            │  (Multi-Session)  │              │         │             │
-└────────────┘                   └──────────────┘         └──────┬──────┘
-                                                                 │
-                                                           ┌─────▼──────┐
-                                                           │Cache Mgr   │
-                                                           │ (Parallel) │
-                                                           └─────┬──────┘
-                                                                 │
-                                                           ┌─────▼──────┐
-                                                           │File System │
-                                                           └────────────┘
-```
-
-#### 3. Status Update Flow
-```
-┌─────────────┐   Status Change   ┌──────────────┐  BMessage  ┌──────────────┐
-│ Sync Engine ├─────────────────>│    Daemon    ├──────────>│Status Monitor│
-│             │                   │              │            │ (Deskbar)    │
-└─────────────┘                   └──────┬───────┘            └──────────────┘
-                                         │
-                                         │ BMessage
-                                         │
-                              ┌──────────▼────────────┐
-                              │   Tracker Add-on     │
-                              │ (Update Icon Overlay) │
-                              └───────────────────────┘
-```
+See [ARCHITECTURE_DIAGRAMS.md](ARCHITECTURE_DIAGRAMS.md) for detailed data flow diagrams including:
+- Authentication flow
+- File synchronization with parallel connections
+- Status update flow
 
 ### Inter-Process Communication Design
 
@@ -425,24 +318,8 @@ enum {
 ### Storage Architecture
 
 #### Directory Structure
-```
-~/config/settings/OneDrive/
-├── accounts/
-│   ├── default.account    # Primary account info
-│   └── [email].account    # Additional accounts
-├── cache/
-│   ├── content/          # Cached file content
-│   │   └── [file_id]     # Individual files
-│   └── thumbnails/       # Image thumbnails
-├── database/
-│   ├── metadata.db       # File metadata
-│   ├── sync_queue.db     # Pending operations
-│   └── conflicts.db      # Conflict history
-├── logs/
-│   ├── sync.log         # Sync operations
-│   └── error.log        # Error details
-└── settings             # BMessage preferences
-```
+
+See [ARCHITECTURE_DIAGRAMS.md](ARCHITECTURE_DIAGRAMS.md) for the complete storage structure layout.
 
 #### Database Schema (SQLite)
 ```sql
