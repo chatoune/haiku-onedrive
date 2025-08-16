@@ -72,147 +72,459 @@ This document captures all architectural decisions, design patterns, and technic
 
 ---
 
-## System Architecture (DRAFT)
+## System Architecture
 
-### Component Overview
+### High-Level Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                         User Space                           │
-├─────────────────────────────────────────────────────────────┤
-│  ┌─────────────┐  ┌──────────────┐  ┌─────────────────┐   │
-│  │ Preferences │  │   Tracker    │  │  Notification   │   │
-│  │     App     │  │   Add-on     │  │     Daemon      │   │
-│  └──────┬──────┘  └──────┬───────┘  └────────┬────────┘   │
-│         │                 │                    │            │
-│         └─────────────────┴────────────────────┘            │
-│                           │                                  │
-│                    ┌──────▼───────┐                         │
-│                    │     IPC      │                         │
-│                    │   Messages   │                         │
-│                    └──────┬───────┘                         │
-├─────────────────────────────────────────────────────────────┤
-│                      System Services                         │
-├─────────────────────────────────────────────────────────────┤
-│                    ┌──────▼───────┐                         │
-│                    │   OneDrive   │                         │
-│                    │    Daemon    │                         │
-│                    └──────┬───────┘                         │
-│         ┌─────────────────┼─────────────────┐               │
-│         │                 │                 │               │
-│    ┌────▼─────┐   ┌──────▼──────┐  ┌──────▼──────┐       │
-│    │   Auth   │   │    Sync     │  │    Cache    │       │
-│    │ Manager  │   │   Engine    │  │   Manager   │       │
-│    └────┬─────┘   └──────┬──────┘  └──────┬──────┘       │
-│         │                 │                 │               │
-│    ┌────▼─────────────────▼─────────────────▼──────┐       │
-│    │              OneDrive API Client              │       │
-│    └───────────────────────┬───────────────────────┘       │
-├─────────────────────────────────────────────────────────────┤
-│                         Network                              │
-├─────────────────────────────────────────────────────────────┤
-│                    ┌───────▼────────┐                       │
-│                    │  Microsoft     │                       │
-│                    │  Graph API     │                       │
-│                    └────────────────┘                       │
-└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────┐
+│                              User Interface Layer                         │
+├─────────────────────────────────────────────────────────────────────────┤
+│  ┌─────────────────┐  ┌──────────────────┐  ┌───────────────────────┐ │
+│  │   Preferences   │  │  Tracker Add-on  │  │   Status Monitor      │ │
+│  │   Application   │  │  (OneDrive.so)   │  │   (Deskbar Icon)     │ │
+│  └────────┬────────┘  └────────┬─────────┘  └──────────┬────────────┘ │
+│           │                     │                         │              │
+│           └─────────────────────┴─────────────────────────┘              │
+│                                 │                                        │
+│                         BMessage Protocol                                │
+│                                 │                                        │
+├─────────────────────────────────────────────────────────────────────────┤
+│                           Core Service Layer                             │
+├─────────────────────────────────────────────────────────────────────────┤
+│  ┌─────────────────────────────▼────────────────────────────────────┐  │
+│  │                     OneDrive Daemon (BApplication)                │  │
+│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐  │  │
+│  │  │ Message      │  │   Service    │  │    Node Monitor      │  │  │
+│  │  │ Handler      │  │   Manager    │  │    (File Watcher)    │  │  │
+│  │  └──────┬───────┘  └──────┬───────┘  └──────────┬───────────┘  │  │
+│  │         │                  │                      │              │  │
+│  │  ┌──────▼──────────────────▼──────────────────────▼─────────┐  │  │
+│  │  │                    Core Services Manager                  │  │  │
+│  │  └───────────────────────────┬───────────────────────────────┘  │  │
+│  └──────────────────────────────┼───────────────────────────────────┘  │
+│                                 │                                        │
+│  ┌──────────────────────────────▼────────────────────────────────────┐  │
+│  │                        Service Components                          │  │
+│  │  ┌───────────────┐  ┌───────────────┐  ┌────────────────────┐  │  │
+│  │  │ Authentication│  │ Sync Engine   │  │  Cache Manager     │  │  │
+│  │  │ Service       │  │ (BLooper)     │  │  (SQLite + Files) │  │  │
+│  │  └───────┬───────┘  └───────┬───────┘  └─────────┬──────────┘  │  │
+│  │          │                   │                     │             │  │
+│  │  ┌───────▼───────────────────▼─────────────────────▼─────────┐  │  │
+│  │  │              OneDrive API Client (BHttpSession)           │  │  │
+│  │  └────────────────────────────┬───────────────────────────────┘  │  │
+│  └──────────────────────────────┼────────────────────────────────────┘  │
+├─────────────────────────────────┼────────────────────────────────────────┤
+│                    Storage & Persistence Layer                           │
+├─────────────────────────────────┼────────────────────────────────────────┤
+│  ┌──────────────┐  ┌────────────▼────────┐  ┌─────────────────────────┐│
+│  │  BKeyStore   │  │   File System       │  │   SQLite Database       ││
+│  │  (Tokens)    │  │   (Sync Folder)     │  │   (Metadata Cache)      ││
+│  └──────────────┘  └─────────────────────┘  └─────────────────────────┘│
+└─────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Component Responsibilities
+### Detailed Component Design
 
-#### OneDrive Daemon
-- Core service running in background
-- Manages all sync operations
-- Handles authentication state
-- Coordinates between components
-- Provides IPC interface
+#### 1. OneDrive Daemon (onedrive_daemon)
+**Type**: BApplication-based system service  
+**Responsibilities**:
+- Central coordination of all OneDrive operations
+- Message-based IPC with UI components
+- Service lifecycle management
+- System integration point
 
-#### Authentication Manager
-- OAuth2 flow implementation
-- Token management and refresh
-- Secure credential storage
-- Session management
+**Key Classes**:
+- `OneDriveDaemon : public BApplication`
+- `MessageHandler : public BHandler`
+- `ServiceManager` - Manages service components
+- `IPCProtocol` - Defines message constants
 
-#### Sync Engine
-- File monitoring (local changes)
-- Change detection (remote changes)
-- Conflict resolution
-- Delta synchronization
-- Metadata preservation
+**Message Protocol**:
+```cpp
+// Application signature
+#define ONEDRIVE_SIGNATURE "application/x-vnd.Haiku-OneDrive"
 
-#### Cache Manager
-- Local file cache
-- Metadata database
-- Offline file management
-- Space management
+// Message commands
+enum {
+    MSG_AUTHENTICATE = 'auth',
+    MSG_SYNC_NOW = 'sync',
+    MSG_PAUSE_SYNC = 'paus',
+    MSG_RESUME_SYNC = 'resm',
+    MSG_GET_STATUS = 'stat',
+    MSG_OPEN_PREFS = 'pref',
+    MSG_QUIT_DAEMON = 'quit'
+};
+```
 
-#### API Client
-- Microsoft Graph API wrapper
-- Request queuing
-- Rate limiting
-- Error handling
-- Retry logic
+#### 2. Authentication Service
+**Type**: Service component within daemon  
+**Responsibilities**:
+- OAuth2 flow management
+- Token storage in BKeyStore
+- Automatic token refresh
+- Multi-account support
 
-#### Preferences Application
-- User configuration UI
+**Key Classes**:
+- `AuthenticationService : public BLooper`
+- `OAuthHandler` - Manages OAuth2 flow
+- `TokenManager` - Token storage/refresh
+- `AccountManager` - Multi-account handling
+
+**Security Design**:
+- Tokens stored in system BKeyStore
+- No plaintext credential storage
+- Automatic token refresh before expiry
+- Secure browser-based authentication
+
+#### 3. Sync Engine
+**Type**: BLooper-based asynchronous service  
+**Responsibilities**:
+- Bidirectional file synchronization
+- Conflict detection and resolution
+- File monitoring via BNodeMonitor
+- Sync queue management
+
+**Key Classes**:
+- `SyncEngine : public BLooper`
+- `FileMonitor` - Local change detection
+- `RemoteMonitor` - Cloud change polling
+- `ConflictResolver` - Conflict handling
+- `SyncQueue` - Operation queuing
+
+**Sync Algorithm**:
+1. Monitor local changes via BNodeMonitor
+2. Poll remote changes periodically
+3. Build sync operation queue
+4. Execute operations with conflict checking
+5. Update local metadata cache
+6. Notify UI of status changes
+
+#### 4. Cache Manager
+**Type**: Singleton service  
+**Responsibilities**:
+- Local file content caching
+- Metadata database management
+- Space management and eviction
+- Offline file handling
+
+**Storage Structure**:
+```
+~/config/settings/OneDrive/
+├── cache.db          # SQLite metadata
+├── cache/            # File content
+│   └── [file_id]/    # Cached files
+├── settings          # App preferences
+└── sync/             # Sync folder
+```
+
+**Key Classes**:
+- `CacheManager` - Main cache interface
+- `MetadataDB` - SQLite wrapper
+- `FileCache` - Content management
+- `SpaceManager` - Eviction policies
+
+#### 5. OneDrive API Client
+**Type**: Shared component  
+**Responsibilities**:
+- Microsoft Graph API communication
+- Request queuing and rate limiting
+- Error handling and retry logic
+- Response parsing
+
+**Key Classes**:
+- `OneDriveClient` - Main API interface
+- `GraphRequest : public BHttpRequest`
+- `RequestQueue` - Rate limiting
+- `ResponseParser` - JSON handling
+
+**API Endpoints**:
+- `/me/drive` - Drive information
+- `/me/drive/root/children` - List files
+- `/me/drive/items/{id}` - File operations
+- `/me/drive/items/{id}/content` - File content
+
+#### 6. Preferences Application
+**Type**: Standalone BApplication  
+**Responsibilities**:
+- User configuration interface
 - Account management
-- Sync folder selection
-- Advanced settings
+- Sync settings
+- Daemon communication
 
-#### Tracker Add-on
-- File status overlays
+**Key Windows**:
+- `PreferencesWindow : public BWindow`
+- `AccountView : public BView`
+- `SyncSettingsView : public BView`
+- `AdvancedView : public BView`
+
+#### 7. Tracker Add-on
+**Type**: Shared library (OneDrive.so)  
+**Responsibilities**:
 - Context menu integration
-- Drag & drop support
-- Property integration
+- File status overlays
+- Drag-drop handling
+- Property extensions
 
-### Data Flow
+**Implementation**:
+- `process_refs()` - Handle file operations
+- `AddOnMenuGen()` - Generate context menus
+- Custom attributes for sync status
+- Icon overlay composition
 
-1. **Authentication Flow**:
-   ```
-   User → Preferences App → Daemon → Auth Manager → Browser → OAuth2 → Token
-   ```
+#### 8. Status Monitor (Deskbar)
+**Type**: BDeskbar replicant  
+**Responsibilities**:
+- System tray presence
+- Quick status display
+- Sync control menu
+- Notifications
 
-2. **Sync Flow**:
-   ```
-   File Change → Monitor → Sync Engine → API Client → Graph API
-   Graph API → API Client → Sync Engine → Cache → Local File
-   ```
+**Key Classes**:
+- `StatusReplicant : public BView`
+- `StatusMenu : public BPopUpMenu`
+- `NotificationManager`
 
-3. **UI Update Flow**:
-   ```
-   Sync State Change → Daemon → IPC → Tracker Add-on → Icon Update
-   ```
+### Data Flow Architecture
 
-### Design Principles
+#### 1. Authentication Flow
+```
+┌─────────────┐     BMessage      ┌──────────────┐
+│ Preferences ├──────────────────>│    Daemon    │
+│     App     │   MSG_AUTHENTICATE │              │
+└─────────────┘                    └──────┬───────┘
+                                          │
+                                    ┌─────▼────────┐
+                                    │Auth Service  │
+                                    │              │
+                                    └─────┬────────┘
+                                          │ Launch Browser
+                                    ┌─────▼────────┐
+                                    │ Web Browser  │
+                                    │ (OAuth2)     │
+                                    └─────┬────────┘
+                                          │ Redirect
+                                    ┌─────▼────────┐
+                                    │Token Manager │
+                                    │ (BKeyStore)  │
+                                    └──────────────┘
+```
 
-1. **Modularity**: Each component has a single, well-defined responsibility
-2. **Asynchronous**: All network operations are non-blocking
-3. **Resilient**: Graceful handling of network failures and conflicts
-4. **Native**: Follow Haiku design patterns and UI guidelines
-5. **Efficient**: Minimal resource usage, especially when idle
-6. **Secure**: No credentials stored in plain text
+#### 2. File Synchronization Flow
+```
+Local Changes:
+┌────────────┐  BNodeMonitor  ┌──────────────┐  Queue  ┌─────────────┐
+│   File     ├───────────────>│ File Monitor ├────────>│ Sync Engine │
+│   System   │   B_STAT_CHANGED│              │         │             │
+└────────────┘                 └──────────────┘         └──────┬──────┘
+                                                               │
+                                                         ┌─────▼──────┐
+                                                         │ API Client │
+                                                         │            │
+                                                         └─────┬──────┘
+                                                               │ HTTPS
+                                                         ┌─────▼──────┐
+                                                         │ Graph API  │
+                                                         └────────────┘
 
-### Security Considerations
+Remote Changes:
+┌────────────┐    Poll/Delta    ┌──────────────┐  Queue  ┌─────────────┐
+│ Graph API  ├─────────────────>│Remote Monitor├────────>│ Sync Engine │
+│            │                   │              │         │             │
+└────────────┘                   └──────────────┘         └──────┬──────┘
+                                                                 │
+                                                           ┌─────▼──────┐
+                                                           │Cache Mgr   │
+                                                           │            │
+                                                           └─────┬──────┘
+                                                                 │
+                                                           ┌─────▼──────┐
+                                                           │File System │
+                                                           └────────────┘
+```
 
-1. **Credential Storage**: Use Haiku's keystore for OAuth tokens
-2. **Communication**: All API calls over HTTPS
-3. **Local Cache**: Respect file permissions
-4. **IPC**: Authenticate daemon connections
+#### 3. Status Update Flow
+```
+┌─────────────┐   Status Change   ┌──────────────┐  BMessage  ┌──────────────┐
+│ Sync Engine ├─────────────────>│    Daemon    ├──────────>│Status Monitor│
+│             │                   │              │            │ (Deskbar)    │
+└─────────────┘                   └──────┬───────┘            └──────────────┘
+                                         │
+                                         │ BMessage
+                                         │
+                              ┌──────────▼────────────┐
+                              │   Tracker Add-on     │
+                              │ (Update Icon Overlay) │
+                              └───────────────────────┘
+```
 
-### Performance Goals
+### Inter-Process Communication Design
 
-1. **Startup**: < 2 seconds to daemon ready
-2. **Sync Latency**: < 5 seconds for small file changes
-3. **Memory**: < 50MB when idle
-4. **CPU**: < 1% when idle
-5. **Battery**: Minimal impact on mobile devices
+#### BMessage Protocol Specification
+```cpp
+// Status Messages
+enum {
+    MSG_STATUS_UPDATE = 'stup',    // Daemon → UI
+    MSG_SYNC_PROGRESS = 'spro',    // Daemon → UI
+    MSG_AUTH_SUCCESS = 'asuc',     // Daemon → Preferences
+    MSG_AUTH_FAILED = 'afai',      // Daemon → Preferences
+    MSG_CONFLICT_DETECTED = 'conf', // Daemon → UI
+};
 
-### Scalability Considerations
+// Message Fields
+// MSG_STATUS_UPDATE fields:
+//   "status" (int32) - Current sync status
+//   "files_synced" (int32) - Number of files synced
+//   "files_total" (int32) - Total files to sync
+//   "errors" (int32) - Error count
 
-1. **File Count**: Support up to 100,000 files
-2. **File Size**: Support files up to 10GB
-3. **Concurrent Ops**: Handle 10+ simultaneous transfers
-4. **Change Frequency**: Handle rapid successive changes
+// MSG_SYNC_PROGRESS fields:
+//   "file_path" (string) - Current file being synced
+//   "progress" (float) - Progress percentage
+//   "operation" (string) - upload/download/delete
+```
+
+#### Component Communication Matrix
+| From | To | Protocol | Purpose |
+|------|----|---------:|---------|
+| Preferences | Daemon | BMessage | Configuration, Control |
+| Daemon | Preferences | BMessage | Status, Auth Results |
+| Daemon | Tracker Add-on | File Attributes | Sync Status |
+| Daemon | Status Monitor | BMessage | Status Updates |
+| Tracker | Daemon | BMessage | File Operations |
+| All Components | API Client | Direct Call | API Operations |
+
+### Storage Architecture
+
+#### Directory Structure
+```
+~/config/settings/OneDrive/
+├── accounts/
+│   ├── default.account    # Primary account info
+│   └── [email].account    # Additional accounts
+├── cache/
+│   ├── content/          # Cached file content
+│   │   └── [file_id]     # Individual files
+│   └── thumbnails/       # Image thumbnails
+├── database/
+│   ├── metadata.db       # File metadata
+│   ├── sync_queue.db     # Pending operations
+│   └── conflicts.db      # Conflict history
+├── logs/
+│   ├── sync.log         # Sync operations
+│   └── error.log        # Error details
+└── settings             # BMessage preferences
+```
+
+#### Database Schema (SQLite)
+```sql
+-- File metadata table
+CREATE TABLE files (
+    id TEXT PRIMARY KEY,
+    path TEXT NOT NULL,
+    name TEXT NOT NULL,
+    size INTEGER,
+    modified_time INTEGER,
+    etag TEXT,
+    parent_id TEXT,
+    is_folder BOOLEAN,
+    sync_status INTEGER,
+    local_hash TEXT,
+    attributes BLOB
+);
+
+-- Sync queue table
+CREATE TABLE sync_queue (
+    id INTEGER PRIMARY KEY,
+    file_id TEXT,
+    operation TEXT,
+    priority INTEGER,
+    created_time INTEGER,
+    retry_count INTEGER
+);
+
+-- Account information
+CREATE TABLE accounts (
+    id TEXT PRIMARY KEY,
+    email TEXT,
+    display_name TEXT,
+    drive_id TEXT,
+    last_sync INTEGER
+);
+```
+
+### Thread Architecture
+
+#### Threading Model
+1. **Main Thread (Daemon)**
+   - Message handling
+   - UI communication
+   - Service coordination
+
+2. **Sync Thread (BLooper)**
+   - File synchronization
+   - Queue processing
+   - Conflict detection
+
+3. **Monitor Thread (BLooper)**
+   - BNodeMonitor events
+   - File system watching
+   - Change detection
+
+4. **Network Thread Pool**
+   - API requests
+   - Parallel uploads/downloads
+   - Rate limiting
+
+#### Thread Safety
+- All shared data protected by BLocker
+- Message passing for cross-thread communication
+- Atomic operations for status updates
+- Thread-safe queue implementations
+
+### Error Handling Strategy
+
+#### Error Categories
+1. **Network Errors**
+   - Retry with exponential backoff
+   - Queue failed operations
+   - Notify user after threshold
+
+2. **Authentication Errors**
+   - Automatic token refresh
+   - Re-authentication prompt
+   - Account status tracking
+
+3. **File System Errors**
+   - Permission issues logged
+   - Space checks before download
+   - Attribute preservation fallback
+
+4. **Sync Conflicts**
+   - Automatic resolution rules
+   - User intervention options
+   - Conflict history tracking
+
+### Resource Management
+
+#### Memory Management
+- Lazy loading of file metadata
+- LRU cache for recent files
+- Configurable cache limits
+- Memory-mapped file operations
+
+#### Network Optimization
+- Delta sync for changes
+- Batch API operations
+- Compression for transfers
+- Bandwidth throttling
+
+#### Power Management
+- Detect system power state
+- Reduce activity on battery
+- Wake locks for critical ops
+- Scheduled sync windows
 
 ---
 *This document is updated whenever architectural decisions are made or changed.*

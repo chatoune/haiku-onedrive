@@ -174,9 +174,35 @@ Each session entry follows this structure:
 - **OneDrive Features**: Selective sync, on-demand files, sharing, version history
 - **Package Management**: Use HaikuDepot for updates instead of built-in updater
 
+17. [13:40] - Committed HaikuDepot update decision
+    - Files affected: FUNCTIONAL_REQUIREMENTS.md, SESSION_LOG.md, project_state.json
+    - Outcome: Aligned with native package management
+    - Issues: None
+    - Commit: 480340a
+
+18. [13:42-13:50] - Designed detailed system architecture
+    - Files affected: ARCHITECTURE.md (major update)
+    - Outcome: Complete architectural design based on functional requirements
+    - Issues: None
+    - Architecture components:
+      * High-level layered architecture diagram
+      * 8 detailed component designs
+      * BMessage IPC protocol specification
+      * Data flow diagrams (auth, sync, status)
+      * Storage architecture and database schema
+      * Thread architecture and safety
+      * Error handling and resource management
+    - Key design decisions:
+      * BApplication-based daemon with BLooper services
+      * BMessage protocol for all IPC
+      * SQLite for metadata storage
+      * BNodeMonitor for file system monitoring
+      * BHttpSession for Graph API
+      * Thread pool for network operations
+
 #### Session Summary:
-- Completed: Documentation infrastructure and functional requirements
+- Completed: Documentation infrastructure, functional requirements, and system architecture
 - Blocked: None
-- Next Steps: Review functional requirements, then proceed to architecture design based on these functions
+- Next Steps: Review architecture, then create API specifications and component interfaces
 
 ---
