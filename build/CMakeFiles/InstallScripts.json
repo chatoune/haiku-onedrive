@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"/Storage/Development/OneDrive/build/cmake_install.cmake",
+		"/Storage/Development/OneDrive/build/tests/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

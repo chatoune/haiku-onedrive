@@ -289,6 +289,145 @@
           Component D
    ```
 
+### Rule 14: C++ Include Organization (MANDATORY)
+**Organize includes to minimize compilation dependencies.**
+
+1. **Header Files (.h)**:
+   - **FORWARD DECLARATIONS**: Use forward declarations for classes when possible
+   - **MINIMAL INCLUDES**: Only include what's needed for declarations
+   - **NO IMPLEMENTATION**: Headers should not contain implementation details
+   
+   ```cpp
+   // Forward declarations instead of includes
+   class BMessage;
+   class BString;
+   class BLooper;
+   ```
+
+2. **Implementation Files (.cpp)**:
+   - **ALL INCLUDES**: Include all headers needed for implementation
+   - **INCLUDE ORDER**:
+     1. Corresponding header file first
+     2. System headers (<...>)
+     3. Haiku kit headers
+     4. Project headers
+   
+   ```cpp
+   // Example order in .cpp file
+   #include "MyClass.h"
+   
+   #include <stdlib.h>
+   #include <string.h>
+   
+   #include <Application.h>
+   #include <Message.h>
+   
+   #include "OtherProjectClass.h"
+   ```
+
+3. **Include Guards**:
+   ```cpp
+   #ifndef ONEDRIVE_CLASSNAME_H
+   #define ONEDRIVE_CLASSNAME_H
+   // content
+   #endif // ONEDRIVE_CLASSNAME_H
+   ```
+
+4. **Benefits**:
+   - Faster compilation times
+   - Reduced dependencies
+   - Clearer interfaces
+   - Easier maintenance
+
+5. **Initial Implementation**:
+   - **CPP FILES**: Initially contain only function prototypes
+   - **GRADUAL IMPLEMENTATION**: Fill in implementations as development progresses
+   
+   ```cpp
+   // Initial .cpp file
+   #include "MyClass.h"
+   #include <all_needed_headers>
+   
+   MyClass::MyClass()
+   {
+   }
+   
+   status_t MyClass::DoSomething()
+   {
+   }
+   ```
+
+### Rule 15: Test-Driven Development (REQUIRED)
+**Follow TDD methodology: Write tests first, then implementation.**
+
+1. **TDD Cycle**:
+   - **RED**: Write a failing test
+   - **GREEN**: Write minimal code to pass the test
+   - **REFACTOR**: Improve code while keeping tests passing
+   
+2. **Test Structure**:
+   ```cpp
+   // Test file naming: ClassNameTest.cpp
+   class AuthenticationServiceTest : public TestCase {
+   public:
+       void TestMethodName() {
+           // Arrange
+           // Act
+           // Assert
+       }
+   };
+   ```
+
+3. **Test Organization**:
+   ```
+   tests/
+   ├── api/
+   │   └── AuthenticationServiceTest.cpp
+   ├── daemon/
+   ├── ui/
+   └── TestRunner.cpp
+   ```
+
+4. **Test Requirements**:
+   - **BEFORE IMPLEMENTATION**: Tests must exist before writing implementation
+   - **COMPREHENSIVE**: Test all public methods and edge cases
+   - **ISOLATED**: Each test should be independent
+   - **FAST**: Unit tests should run quickly
+   - **READABLE**: Test names clearly describe what they test
+
+5. **Haiku Test Patterns**:
+   ```cpp
+   // Test BMessage handling
+   void TestMessageReceived() {
+       BMessage msg(MSG_AUTH_START);
+       service->PostMessage(&msg);
+       // Verify response
+   }
+   
+   // Test async operations
+   void TestAsyncOperation() {
+       sem_id sem = create_sem(0, "test_sem");
+       // Start async operation
+       // Wait with timeout
+       status_t result = acquire_sem_etc(sem, 1, B_RELATIVE_TIMEOUT, 1000000);
+       ASSERT_EQ(B_OK, result);
+   }
+   ```
+
+6. **Mock Objects**:
+   - Use simple mock implementations for dependencies
+   - Prefer real Haiku objects when lightweight (BMessage, BString)
+   - Mock network and file system operations
+
+7. **Test Execution**:
+   ```bash
+   # Run all tests
+   ./TestRunner
+   
+   # Run specific test suite
+   ./TestRunner --suite AuthenticationServiceTest
+   ```
+
 ## 🚨 ENFORCEMENT
 
 **These rules are NON-NEGOTIABLE. Any session that doesn't follow these rules should be considered incomplete and potentially harmful to project continuity.**
@@ -312,5 +451,5 @@
 ---
 *These rules ensure project continuity across sessions and developers. Failure to follow these rules will result in lost work and confusion.*
 
-*Last Updated: 2025-08-16 14:00*
-*Version: 1.3.0*
+*Last Updated: 2025-08-16 14:15*
+*Version: 1.5.0*

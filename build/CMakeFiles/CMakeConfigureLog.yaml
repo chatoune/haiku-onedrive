@@ -1,0 +1,381 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/boot/system/data/cmake/Modules/CMakeDetermineSystem.cmake:205 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The system is: Haiku - 1 - x86_64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/boot/system/data/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/boot/system/data/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/boot/system/data/cmake/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: /bin/c++ 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+      
+      The CXX compiler identification is GNU, found in:
+        /Storage/Development/OneDrive/build/CMakeFiles/4.0.3/CompilerIdCXX/a.out
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/boot/system/data/cmake/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "/boot/system/data/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "/Storage/Development/OneDrive/build/CMakeFiles/CMakeScratch/TryCompile-6nBHcy"
+      binary: "/Storage/Development/OneDrive/build/CMakeFiles/CMakeScratch/TryCompile-6nBHcy"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/Storage/Development/OneDrive/build/CMakeFiles/CMakeScratch/TryCompile-6nBHcy'
+        
+        Run Build Command(s): /bin/cmake -E env VERBOSE=1 /bin/make -f Makefile cmTC_738bf/fast
+        /bin/make  -f CMakeFiles/cmTC_738bf.dir/build.make CMakeFiles/cmTC_738bf.dir/build
+        make[1]: Entering directory '/Storage/Development/OneDrive/build/CMakeFiles/CMakeScratch/TryCompile-6nBHcy'
+        Building CXX object CMakeFiles/cmTC_738bf.dir/CMakeCXXCompilerABI.cpp.o
+        /bin/c++   -v -o CMakeFiles/cmTC_738bf.dir/CMakeCXXCompilerABI.cpp.o -c /boot/system/data/cmake/Modules/CMakeCXXCompilerABI.cpp
+        Using built-in specs.
+        COLLECT_GCC=/bin/c++
+        Target: x86_64-unknown-haiku
+        Configured with: /sources/gcc-13.3.0/configure --build=x86_64-unknown-haiku --prefix=/packages/gcc-13.3.0_2023_08_10-4/.self/develop/tools --libexecdir=/packages/gcc-13.3.0_2023_08_10-4/.self/develop/tools/lib --mandir=/packages/gcc-13.3.0_2023_08_10-4/.self/documentation/man --docdir=/packages/gcc-13.3.0_2023_08_10-4/.self/documentation/packages/gcc --enable-threads=posix --disable-nls --enable-shared --with-gnu-ld --with-gnu-as --enable-version-specific-runtime-libs --enable-languages=c,c++,fortran,jit,objc --enable-lto --enable-frame-pointer --with-pkgversion=2023_08_10 --enable-__cxa-atexit --with-system-zlib --enable-checking=release --with-bug-url=http://dev.haiku-os.org/ --with-default-libstdcxx-abi=gcc4-compatible --enable-libssp --enable-libsanitizer --enable-host-shared --disable-multilib
+        Thread model: posix
+        Supported LTO compression algorithms: zlib
+        gcc version 13.3.0 (2023_08_10) 
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_738bf.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_738bf.dir/'
+         /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/cc1plus -quiet -v -iprefix /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/ /boot/system/data/cmake/Modules/CMakeCXXCompilerABI.cpp -fPIC -Wno-multichar -fno-omit-frame-pointer -quiet -dumpdir CMakeFiles/cmTC_738bf.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -Wno-ctor-dtor-privacy -o /tmp//ccfmdbd8.s
+        GNU C++17 (2023_08_10) version 13.3.0 (x86_64-unknown-haiku)
+        	compiled by GNU C version 13.3.0, GMP version 6.3.0, MPFR version 4.2.0, MPC version 1.2.1, isl version none
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../../x86_64-unknown-haiku/include"
+        ignoring duplicate directory "/boot/system/develop/tools/bin/../lib/gcc/../../lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++"
+        ignoring duplicate directory "/boot/system/develop/tools/bin/../lib/gcc/../../lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++/x86_64-unknown-haiku"
+        ignoring duplicate directory "/boot/system/develop/tools/bin/../lib/gcc/../../lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++/backward"
+        ignoring duplicate directory "/boot/system/develop/tools/bin/../lib/gcc/../../lib/gcc/x86_64-unknown-haiku/13.3.0/include"
+        ignoring duplicate directory "/boot/system/develop/tools/bin/../lib/gcc/../../lib/gcc/x86_64-unknown-haiku/13.3.0/include-fixed"
+        ignoring nonexistent directory "/boot/system/develop/tools/bin/../lib/gcc/../../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../../x86_64-unknown-haiku/include"
+        ignoring nonexistent directory "/boot/system/non-packaged/develop/headers"
+        ignoring nonexistent directory "/boot/system/develop/headers/os/be_apps/Deskbar"
+        ignoring nonexistent directory "/boot/system/develop/headers/3rdparty"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++
+         /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++/x86_64-unknown-haiku
+         /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++/backward
+         /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/include
+         /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/include-fixed
+         /boot/system/develop/headers/os
+         /boot/system/develop/headers/os/app
+         /boot/system/develop/headers/os/device
+         /boot/system/develop/headers/os/drivers
+         /boot/system/develop/headers/os/game
+         /boot/system/develop/headers/os/interface
+         /boot/system/develop/headers/os/kernel
+         /boot/system/develop/headers/os/locale
+         /boot/system/develop/headers/os/mail
+         /boot/system/develop/headers/os/media
+         /boot/system/develop/headers/os/midi
+         /boot/system/develop/headers/os/midi2
+         /boot/system/develop/headers/os/net
+         /boot/system/develop/headers/os/opengl
+         /boot/system/develop/headers/os/storage
+         /boot/system/develop/headers/os/support
+         /boot/system/develop/headers/os/translation
+         /boot/system/develop/headers/os/add-ons/graphics
+         /boot/system/develop/headers/os/add-ons/input_server
+         /boot/system/develop/headers/os/add-ons/mail_daemon
+         /boot/system/develop/headers/os/add-ons/registrar
+         /boot/system/develop/headers/os/add-ons/screen_saver
+         /boot/system/develop/headers/os/add-ons/tracker
+         /boot/system/develop/headers/os/be_apps/NetPositive
+         /boot/system/develop/headers/os/be_apps/Tracker
+         /boot/system/develop/headers/bsd
+         /boot/system/develop/headers/glibc
+         /boot/system/develop/headers/gnu
+         /boot/system/develop/headers/posix
+         /boot/system/develop/headers
+        End of search list.
+        Compiler executable checksum: de1e720fc90ae3700c20e3a90199e7a3
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_738bf.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_738bf.dir/'
+         /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../../x86_64-unknown-haiku/bin/as -v -V -Qy --64 -o CMakeFiles/cmTC_738bf.dir/CMakeCXXCompilerABI.cpp.o /tmp//ccfmdbd8.s
+        GNU assembler version 2.42 (x86_64-unknown-haiku) using BFD version (GNU Binutils) 2.42
+        COMPILER_PATH=/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/:/boot/system/develop/tools/bin/../lib/gcc/:/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../../x86_64-unknown-haiku/bin/
+        BELIBRARIES=/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/:/boot/system/develop/tools/bin/../lib/gcc/:/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../../x86_64-unknown-haiku/lib/:/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../:/boot/system/develop/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_738bf.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_738bf.dir/CMakeCXXCompilerABI.cpp.'
+        Linking CXX executable cmTC_738bf
+        /bin/cmake -E cmake_link_script CMakeFiles/cmTC_738bf.dir/link.txt --verbose=1
+        Using built-in specs.
+        COLLECT_GCC=/bin/c++
+        COLLECT_LTO_WRAPPER=/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/lto-wrapper
+        Target: x86_64-unknown-haiku
+        Configured with: /sources/gcc-13.3.0/configure --build=x86_64-unknown-haiku --prefix=/packages/gcc-13.3.0_2023_08_10-4/.self/develop/tools --libexecdir=/packages/gcc-13.3.0_2023_08_10-4/.self/develop/tools/lib --mandir=/packages/gcc-13.3.0_2023_08_10-4/.self/documentation/man --docdir=/packages/gcc-13.3.0_2023_08_10-4/.self/documentation/packages/gcc --enable-threads=posix --disable-nls --enable-shared --with-gnu-ld --with-gnu-as --enable-version-specific-runtime-libs --enable-languages=c,c++,fortran,jit,objc --enable-lto --enable-frame-pointer --with-pkgversion=2023_08_10 --enable-__cxa-atexit --with-system-zlib --enable-checking=release --with-bug-url=http://dev.haiku-os.org/ --with-default-libstdcxx-abi=gcc4-compatible --enable-libssp --enable-libsanitizer --enable-host-shared --disable-multilib
+        Thread model: posix
+        Supported LTO compression algorithms: zlib
+        gcc version 13.3.0 (2023_08_10) 
+        COMPILER_PATH=/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/:/boot/system/develop/tools/bin/../lib/gcc/:/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../../x86_64-unknown-haiku/bin/
+        BELIBRARIES=/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/:/boot/system/develop/tools/bin/../lib/gcc/:/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../../x86_64-unknown-haiku/lib/:/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../:/boot/system/develop/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_738bf' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_738bf.'
+         /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/collect2 -plugin /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/liblto_plugin.so -plugin-opt=/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp//ccwaD7mb.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lroot -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --eh-frame-hdr -m elf_x86_64_haiku -shared -no-undefined -o cmTC_738bf /boot/system/develop/lib/crti.o /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/crtbeginS.o /boot/system/develop/lib/start_dyn.o /boot/system/develop/lib/init_term_dyn.o -L/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0 -L/boot/system/develop/tools/bin/../lib/gcc -L/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../../x86_64-unknown-haiku/lib -L/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../.. -L/boot/system/develop/lib CMakeFiles/cmTC_738bf.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lgcc_s -lgcc -lroot -lgcc_s -lgcc /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/crtendS.o /boot/system/develop/lib/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_738bf' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_738bf.'
+        /bin/c++  -v CMakeFiles/cmTC_738bf.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_738bf
+        make[1]: Leaving directory '/Storage/Development/OneDrive/build/CMakeFiles/CMakeScratch/TryCompile-6nBHcy'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/boot/system/data/cmake/Modules/CMakeDetermineCompilerABI.cmake:191 (message)"
+      - "/boot/system/data/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++]
+          add: [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++/x86_64-unknown-haiku]
+          add: [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++/backward]
+          add: [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/include]
+          add: [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/include-fixed]
+          add: [/boot/system/develop/headers/os]
+          add: [/boot/system/develop/headers/os/app]
+          add: [/boot/system/develop/headers/os/device]
+          add: [/boot/system/develop/headers/os/drivers]
+          add: [/boot/system/develop/headers/os/game]
+          add: [/boot/system/develop/headers/os/interface]
+          add: [/boot/system/develop/headers/os/kernel]
+          add: [/boot/system/develop/headers/os/locale]
+          add: [/boot/system/develop/headers/os/mail]
+          add: [/boot/system/develop/headers/os/media]
+          add: [/boot/system/develop/headers/os/midi]
+          add: [/boot/system/develop/headers/os/midi2]
+          add: [/boot/system/develop/headers/os/net]
+          add: [/boot/system/develop/headers/os/opengl]
+          add: [/boot/system/develop/headers/os/storage]
+          add: [/boot/system/develop/headers/os/support]
+          add: [/boot/system/develop/headers/os/translation]
+          add: [/boot/system/develop/headers/os/add-ons/graphics]
+          add: [/boot/system/develop/headers/os/add-ons/input_server]
+          add: [/boot/system/develop/headers/os/add-ons/mail_daemon]
+          add: [/boot/system/develop/headers/os/add-ons/registrar]
+          add: [/boot/system/develop/headers/os/add-ons/screen_saver]
+          add: [/boot/system/develop/headers/os/add-ons/tracker]
+          add: [/boot/system/develop/headers/os/be_apps/NetPositive]
+          add: [/boot/system/develop/headers/os/be_apps/Tracker]
+          add: [/boot/system/develop/headers/bsd]
+          add: [/boot/system/develop/headers/glibc]
+          add: [/boot/system/develop/headers/gnu]
+          add: [/boot/system/develop/headers/posix]
+          add: [/boot/system/develop/headers]
+        end of search list found
+        collapse include dir [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++] ==> [/boot/system/develop/tools/lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++]
+        collapse include dir [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++/x86_64-unknown-haiku] ==> [/boot/system/develop/tools/lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++/x86_64-unknown-haiku]
+        collapse include dir [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++/backward] ==> [/boot/system/develop/tools/lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++/backward]
+        collapse include dir [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/include] ==> [/boot/system/develop/tools/lib/gcc/x86_64-unknown-haiku/13.3.0/include]
+        collapse include dir [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/include-fixed] ==> [/boot/system/develop/tools/lib/gcc/x86_64-unknown-haiku/13.3.0/include-fixed]
+        collapse include dir [/boot/system/develop/headers/os] ==> [/boot/system/develop/headers/os]
+        collapse include dir [/boot/system/develop/headers/os/app] ==> [/boot/system/develop/headers/os/app]
+        collapse include dir [/boot/system/develop/headers/os/device] ==> [/boot/system/develop/headers/os/device]
+        collapse include dir [/boot/system/develop/headers/os/drivers] ==> [/boot/system/develop/headers/os/drivers]
+        collapse include dir [/boot/system/develop/headers/os/game] ==> [/boot/system/develop/headers/os/game]
+        collapse include dir [/boot/system/develop/headers/os/interface] ==> [/boot/system/develop/headers/os/interface]
+        collapse include dir [/boot/system/develop/headers/os/kernel] ==> [/boot/system/develop/headers/os/kernel]
+        collapse include dir [/boot/system/develop/headers/os/locale] ==> [/boot/system/develop/headers/os/locale]
+        collapse include dir [/boot/system/develop/headers/os/mail] ==> [/boot/system/develop/headers/os/mail]
+        collapse include dir [/boot/system/develop/headers/os/media] ==> [/boot/system/develop/headers/os/media]
+        collapse include dir [/boot/system/develop/headers/os/midi] ==> [/boot/system/develop/headers/os/midi]
+        collapse include dir [/boot/system/develop/headers/os/midi2] ==> [/boot/system/develop/headers/os/midi2]
+        collapse include dir [/boot/system/develop/headers/os/net] ==> [/boot/system/develop/headers/os/net]
+        collapse include dir [/boot/system/develop/headers/os/opengl] ==> [/boot/system/develop/headers/os/opengl]
+        collapse include dir [/boot/system/develop/headers/os/storage] ==> [/boot/system/develop/headers/os/storage]
+        collapse include dir [/boot/system/develop/headers/os/support] ==> [/boot/system/develop/headers/os/support]
+        collapse include dir [/boot/system/develop/headers/os/translation] ==> [/boot/system/develop/headers/os/translation]
+        collapse include dir [/boot/system/develop/headers/os/add-ons/graphics] ==> [/boot/system/develop/headers/os/add-ons/graphics]
+        collapse include dir [/boot/system/develop/headers/os/add-ons/input_server] ==> [/boot/system/develop/headers/os/add-ons/input_server]
+        collapse include dir [/boot/system/develop/headers/os/add-ons/mail_daemon] ==> [/boot/system/develop/headers/os/add-ons/mail_daemon]
+        collapse include dir [/boot/system/develop/headers/os/add-ons/registrar] ==> [/boot/system/develop/headers/os/add-ons/registrar]
+        collapse include dir [/boot/system/develop/headers/os/add-ons/screen_saver] ==> [/boot/system/develop/headers/os/add-ons/screen_saver]
+        collapse include dir [/boot/system/develop/headers/os/add-ons/tracker] ==> [/boot/system/develop/headers/os/add-ons/tracker]
+        collapse include dir [/boot/system/develop/headers/os/be_apps/NetPositive] ==> [/boot/system/develop/headers/os/be_apps/NetPositive]
+        collapse include dir [/boot/system/develop/headers/os/be_apps/Tracker] ==> [/boot/system/develop/headers/os/be_apps/Tracker]
+        collapse include dir [/boot/system/develop/headers/bsd] ==> [/boot/system/develop/headers/bsd]
+        collapse include dir [/boot/system/develop/headers/glibc] ==> [/boot/system/develop/headers/glibc]
+        collapse include dir [/boot/system/develop/headers/gnu] ==> [/boot/system/develop/headers/gnu]
+        collapse include dir [/boot/system/develop/headers/posix] ==> [/boot/system/develop/headers/posix]
+        collapse include dir [/boot/system/develop/headers] ==> [/boot/system/develop/headers]
+        implicit include dirs: [/boot/system/develop/tools/lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++;/boot/system/develop/tools/lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++/x86_64-unknown-haiku;/boot/system/develop/tools/lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++/backward;/boot/system/develop/tools/lib/gcc/x86_64-unknown-haiku/13.3.0/include;/boot/system/develop/tools/lib/gcc/x86_64-unknown-haiku/13.3.0/include-fixed;/boot/system/develop/headers/os;/boot/system/develop/headers/os/app;/boot/system/develop/headers/os/device;/boot/system/develop/headers/os/drivers;/boot/system/develop/headers/os/game;/boot/system/develop/headers/os/interface;/boot/system/develop/headers/os/kernel;/boot/system/develop/headers/os/locale;/boot/system/develop/headers/os/mail;/boot/system/develop/headers/os/media;/boot/system/develop/headers/os/midi;/boot/system/develop/headers/os/midi2;/boot/system/develop/headers/os/net;/boot/system/develop/headers/os/opengl;/boot/system/develop/headers/os/storage;/boot/system/develop/headers/os/support;/boot/system/develop/headers/os/translation;/boot/system/develop/headers/os/add-ons/graphics;/boot/system/develop/headers/os/add-ons/input_server;/boot/system/develop/headers/os/add-ons/mail_daemon;/boot/system/develop/headers/os/add-ons/registrar;/boot/system/develop/headers/os/add-ons/screen_saver;/boot/system/develop/headers/os/add-ons/tracker;/boot/system/develop/headers/os/be_apps/NetPositive;/boot/system/develop/headers/os/be_apps/Tracker;/boot/system/develop/headers/bsd;/boot/system/develop/headers/glibc;/boot/system/develop/headers/gnu;/boot/system/develop/headers/posix;/boot/system/develop/headers]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/boot/system/data/cmake/Modules/CMakeDetermineCompilerABI.cmake:227 (message)"
+      - "/boot/system/data/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
+        ignore line: [Change Dir: '/Storage/Development/OneDrive/build/CMakeFiles/CMakeScratch/TryCompile-6nBHcy']
+        ignore line: []
+        ignore line: [Run Build Command(s): /bin/cmake -E env VERBOSE=1 /bin/make -f Makefile cmTC_738bf/fast]
+        ignore line: [/bin/make  -f CMakeFiles/cmTC_738bf.dir/build.make CMakeFiles/cmTC_738bf.dir/build]
+        ignore line: [make[1]: Entering directory '/Storage/Development/OneDrive/build/CMakeFiles/CMakeScratch/TryCompile-6nBHcy']
+        ignore line: [Building CXX object CMakeFiles/cmTC_738bf.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/bin/c++   -v -o CMakeFiles/cmTC_738bf.dir/CMakeCXXCompilerABI.cpp.o -c /boot/system/data/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/bin/c++]
+        ignore line: [Target: x86_64-unknown-haiku]
+        ignore line: [Configured with: /sources/gcc-13.3.0/configure --build=x86_64-unknown-haiku --prefix=/packages/gcc-13.3.0_2023_08_10-4/.self/develop/tools --libexecdir=/packages/gcc-13.3.0_2023_08_10-4/.self/develop/tools/lib --mandir=/packages/gcc-13.3.0_2023_08_10-4/.self/documentation/man --docdir=/packages/gcc-13.3.0_2023_08_10-4/.self/documentation/packages/gcc --enable-threads=posix --disable-nls --enable-shared --with-gnu-ld --with-gnu-as --enable-version-specific-runtime-libs --enable-languages=c,c++,fortran,jit,objc --enable-lto --enable-frame-pointer --with-pkgversion=2023_08_10 --enable-__cxa-atexit --with-system-zlib --enable-checking=release --with-bug-url=http://dev.haiku-os.org/ --with-default-libstdcxx-abi=gcc4-compatible --enable-libssp --enable-libsanitizer --enable-host-shared --disable-multilib]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 13.3.0 (2023_08_10) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_738bf.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_738bf.dir/']
+        ignore line: [ /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/cc1plus -quiet -v -iprefix /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/ /boot/system/data/cmake/Modules/CMakeCXXCompilerABI.cpp -fPIC -Wno-multichar -fno-omit-frame-pointer -quiet -dumpdir CMakeFiles/cmTC_738bf.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -Wno-ctor-dtor-privacy -o /tmp//ccfmdbd8.s]
+        ignore line: [GNU C++17 (2023_08_10) version 13.3.0 (x86_64-unknown-haiku)]
+        ignore line: [	compiled by GNU C version 13.3.0  GMP version 6.3.0  MPFR version 4.2.0  MPC version 1.2.1  isl version none]
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../../x86_64-unknown-haiku/include"]
+        ignore line: [ignoring duplicate directory "/boot/system/develop/tools/bin/../lib/gcc/../../lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++"]
+        ignore line: [ignoring duplicate directory "/boot/system/develop/tools/bin/../lib/gcc/../../lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++/x86_64-unknown-haiku"]
+        ignore line: [ignoring duplicate directory "/boot/system/develop/tools/bin/../lib/gcc/../../lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++/backward"]
+        ignore line: [ignoring duplicate directory "/boot/system/develop/tools/bin/../lib/gcc/../../lib/gcc/x86_64-unknown-haiku/13.3.0/include"]
+        ignore line: [ignoring duplicate directory "/boot/system/develop/tools/bin/../lib/gcc/../../lib/gcc/x86_64-unknown-haiku/13.3.0/include-fixed"]
+        ignore line: [ignoring nonexistent directory "/boot/system/develop/tools/bin/../lib/gcc/../../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../../x86_64-unknown-haiku/include"]
+        ignore line: [ignoring nonexistent directory "/boot/system/non-packaged/develop/headers"]
+        ignore line: [ignoring nonexistent directory "/boot/system/develop/headers/os/be_apps/Deskbar"]
+        ignore line: [ignoring nonexistent directory "/boot/system/develop/headers/3rdparty"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++]
+        ignore line: [ /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++/x86_64-unknown-haiku]
+        ignore line: [ /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/include/c++/backward]
+        ignore line: [ /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/include]
+        ignore line: [ /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/include-fixed]
+        ignore line: [ /boot/system/develop/headers/os]
+        ignore line: [ /boot/system/develop/headers/os/app]
+        ignore line: [ /boot/system/develop/headers/os/device]
+        ignore line: [ /boot/system/develop/headers/os/drivers]
+        ignore line: [ /boot/system/develop/headers/os/game]
+        ignore line: [ /boot/system/develop/headers/os/interface]
+        ignore line: [ /boot/system/develop/headers/os/kernel]
+        ignore line: [ /boot/system/develop/headers/os/locale]
+        ignore line: [ /boot/system/develop/headers/os/mail]
+        ignore line: [ /boot/system/develop/headers/os/media]
+        ignore line: [ /boot/system/develop/headers/os/midi]
+        ignore line: [ /boot/system/develop/headers/os/midi2]
+        ignore line: [ /boot/system/develop/headers/os/net]
+        ignore line: [ /boot/system/develop/headers/os/opengl]
+        ignore line: [ /boot/system/develop/headers/os/storage]
+        ignore line: [ /boot/system/develop/headers/os/support]
+        ignore line: [ /boot/system/develop/headers/os/translation]
+        ignore line: [ /boot/system/develop/headers/os/add-ons/graphics]
+        ignore line: [ /boot/system/develop/headers/os/add-ons/input_server]
+        ignore line: [ /boot/system/develop/headers/os/add-ons/mail_daemon]
+        ignore line: [ /boot/system/develop/headers/os/add-ons/registrar]
+        ignore line: [ /boot/system/develop/headers/os/add-ons/screen_saver]
+        ignore line: [ /boot/system/develop/headers/os/add-ons/tracker]
+        ignore line: [ /boot/system/develop/headers/os/be_apps/NetPositive]
+        ignore line: [ /boot/system/develop/headers/os/be_apps/Tracker]
+        ignore line: [ /boot/system/develop/headers/bsd]
+        ignore line: [ /boot/system/develop/headers/glibc]
+        ignore line: [ /boot/system/develop/headers/gnu]
+        ignore line: [ /boot/system/develop/headers/posix]
+        ignore line: [ /boot/system/develop/headers]
+        ignore line: [End of search list.]
+        ignore line: [Compiler executable checksum: de1e720fc90ae3700c20e3a90199e7a3]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_738bf.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_738bf.dir/']
+        ignore line: [ /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../../x86_64-unknown-haiku/bin/as -v -V -Qy --64 -o CMakeFiles/cmTC_738bf.dir/CMakeCXXCompilerABI.cpp.o /tmp//ccfmdbd8.s]
+        ignore line: [GNU assembler version 2.42 (x86_64-unknown-haiku) using BFD version (GNU Binutils) 2.42]
+        ignore line: [COMPILER_PATH=/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/:/boot/system/develop/tools/bin/../lib/gcc/:/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../../x86_64-unknown-haiku/bin/]
+        ignore line: [BELIBRARIES=/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/:/boot/system/develop/tools/bin/../lib/gcc/:/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../../x86_64-unknown-haiku/lib/:/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../:/boot/system/develop/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_738bf.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_738bf.dir/CMakeCXXCompilerABI.cpp.']
+        ignore line: [Linking CXX executable cmTC_738bf]
+        ignore line: [/bin/cmake -E cmake_link_script CMakeFiles/cmTC_738bf.dir/link.txt --verbose=1]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/bin/c++]
+        ignore line: [COLLECT_LTO_WRAPPER=/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/lto-wrapper]
+        ignore line: [Target: x86_64-unknown-haiku]
+        ignore line: [Configured with: /sources/gcc-13.3.0/configure --build=x86_64-unknown-haiku --prefix=/packages/gcc-13.3.0_2023_08_10-4/.self/develop/tools --libexecdir=/packages/gcc-13.3.0_2023_08_10-4/.self/develop/tools/lib --mandir=/packages/gcc-13.3.0_2023_08_10-4/.self/documentation/man --docdir=/packages/gcc-13.3.0_2023_08_10-4/.self/documentation/packages/gcc --enable-threads=posix --disable-nls --enable-shared --with-gnu-ld --with-gnu-as --enable-version-specific-runtime-libs --enable-languages=c,c++,fortran,jit,objc --enable-lto --enable-frame-pointer --with-pkgversion=2023_08_10 --enable-__cxa-atexit --with-system-zlib --enable-checking=release --with-bug-url=http://dev.haiku-os.org/ --with-default-libstdcxx-abi=gcc4-compatible --enable-libssp --enable-libsanitizer --enable-host-shared --disable-multilib]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 13.3.0 (2023_08_10) ]
+        ignore line: [COMPILER_PATH=/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/:/boot/system/develop/tools/bin/../lib/gcc/:/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../../x86_64-unknown-haiku/bin/]
+        ignore line: [BELIBRARIES=/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/:/boot/system/develop/tools/bin/../lib/gcc/:/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../../x86_64-unknown-haiku/lib/:/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../:/boot/system/develop/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_738bf' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_738bf.']
+        link line: [ /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/collect2 -plugin /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/liblto_plugin.so -plugin-opt=/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp//ccwaD7mb.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lroot -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --eh-frame-hdr -m elf_x86_64_haiku -shared -no-undefined -o cmTC_738bf /boot/system/develop/lib/crti.o /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/crtbeginS.o /boot/system/develop/lib/start_dyn.o /boot/system/develop/lib/init_term_dyn.o -L/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0 -L/boot/system/develop/tools/bin/../lib/gcc -L/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../../x86_64-unknown-haiku/lib -L/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../.. -L/boot/system/develop/lib CMakeFiles/cmTC_738bf.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lgcc_s -lgcc -lroot -lgcc_s -lgcc /boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/crtendS.o /boot/system/develop/lib/crtn.o]
+          arg [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/collect2] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp//ccwaD7mb.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lroot] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [-m] ==> ignore
+          arg [elf_x86_64_haiku] ==> ignore
+          arg [-shared] ==> ignore
+          arg [-no-undefined] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_738bf] ==> ignore
+          arg [/boot/system/develop/lib/crti.o] ==> obj [/boot/system/develop/lib/crti.o]
+          arg [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/crtbeginS.o] ==> obj [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/crtbeginS.o]
+          arg [/boot/system/develop/lib/start_dyn.o] ==> obj [/boot/system/develop/lib/start_dyn.o]
+          arg [/boot/system/develop/lib/init_term_dyn.o] ==> obj [/boot/system/develop/lib/init_term_dyn.o]
+          arg [-L/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0] ==> dir [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0]
+          arg [-L/boot/system/develop/tools/bin/../lib/gcc] ==> dir [/boot/system/develop/tools/bin/../lib/gcc]
+          arg [-L/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../../x86_64-unknown-haiku/lib] ==> dir [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../../x86_64-unknown-haiku/lib]
+          arg [-L/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../..] ==> dir [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../..]
+          arg [-L/boot/system/develop/lib] ==> dir [/boot/system/develop/lib]
+          arg [CMakeFiles/cmTC_738bf.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [-lstdc++] ==> lib [stdc++]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lroot] ==> lib [root]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/crtendS.o] ==> obj [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/crtendS.o]
+          arg [/boot/system/develop/lib/crtn.o] ==> obj [/boot/system/develop/lib/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_738bf' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_738bf.']
+        ignore line: [/bin/c++  -v CMakeFiles/cmTC_738bf.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_738bf]
+        ignore line: [make[1]: Leaving directory '/Storage/Development/OneDrive/build/CMakeFiles/CMakeScratch/TryCompile-6nBHcy']
+        ignore line: []
+        ignore line: []
+        collapse obj [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/crtbeginS.o] ==> [/boot/system/develop/tools/lib/gcc/x86_64-unknown-haiku/13.3.0/crtbeginS.o]
+        collapse obj [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/crtendS.o] ==> [/boot/system/develop/tools/lib/gcc/x86_64-unknown-haiku/13.3.0/crtendS.o]
+        collapse library dir [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0] ==> [/boot/system/develop/tools/lib/gcc/x86_64-unknown-haiku/13.3.0]
+        collapse library dir [/boot/system/develop/tools/bin/../lib/gcc] ==> [/boot/system/develop/tools/lib/gcc]
+        collapse library dir [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../../../x86_64-unknown-haiku/lib] ==> [/boot/system/develop/tools/x86_64-unknown-haiku/lib]
+        collapse library dir [/boot/system/develop/tools/bin/../lib/gcc/x86_64-unknown-haiku/13.3.0/../../..] ==> [/boot/system/develop/tools/lib]
+        collapse library dir [/boot/system/develop/lib] ==> [/boot/system/develop/lib]
+        implicit libs: [stdc++;gcc_s;gcc;root;gcc_s;gcc]
+        implicit objs: [/boot/system/develop/lib/crti.o;/boot/system/develop/tools/lib/gcc/x86_64-unknown-haiku/13.3.0/crtbeginS.o;/boot/system/develop/lib/start_dyn.o;/boot/system/develop/lib/init_term_dyn.o;/boot/system/develop/tools/lib/gcc/x86_64-unknown-haiku/13.3.0/crtendS.o;/boot/system/develop/lib/crtn.o]
+        implicit dirs: [/boot/system/develop/tools/lib/gcc/x86_64-unknown-haiku/13.3.0;/boot/system/develop/tools/lib/gcc;/boot/system/develop/tools/x86_64-unknown-haiku/lib;/boot/system/develop/tools/lib;/boot/system/develop/lib]
+        implicit fwks: []
+      
+      
+...

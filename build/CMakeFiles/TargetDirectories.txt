@@ -1,0 +1,9 @@
+/Storage/Development/OneDrive/build/CMakeFiles/test.dir
+/Storage/Development/OneDrive/build/CMakeFiles/edit_cache.dir
+/Storage/Development/OneDrive/build/CMakeFiles/rebuild_cache.dir
+/Storage/Development/OneDrive/build/tests/CMakeFiles/AuthenticationServiceTest.dir
+/Storage/Development/OneDrive/build/tests/CMakeFiles/TestRunner.dir
+/Storage/Development/OneDrive/build/tests/CMakeFiles/run-tests.dir
+/Storage/Development/OneDrive/build/tests/CMakeFiles/test.dir
+/Storage/Development/OneDrive/build/tests/CMakeFiles/edit_cache.dir
+/Storage/Development/OneDrive/build/tests/CMakeFiles/rebuild_cache.dir
