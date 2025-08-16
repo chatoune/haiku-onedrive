@@ -129,9 +129,32 @@ Each session entry follows this structure:
       * Clear list of allowed planning activities
       * User trigger phrases defined
 
+13. [13:33] - Committed no-code rule
+    - Files affected: PROJECT_RULES.md, SESSION_LOG.md, project_state.json
+    - Outcome: Clear separation between planning and implementation phases
+    - Issues: None
+    - Commit: 0da3d87
+
+14. [13:35] - Created FUNCTIONAL_REQUIREMENTS.md
+    - Files affected: FUNCTIONAL_REQUIREMENTS.md (new)
+    - Outcome: Comprehensive functional requirements defined
+    - Issues: None
+    - Content:
+      * 8 major function categories
+      * 32 specific functions defined
+      * 4-phase implementation plan
+      * Priority classification (MVP to Polish)
+      * Functions include: Authentication, File Sync, File Management, Haiku Integration, Performance, UI, System, Security
+
+#### Decisions Made:
+- **Function-First Approach**: Define what the application does before how it does it
+- **Phased Implementation**: 4 phases from MVP to Polish
+- **Haiku-Specific Functions**: File attributes, Tracker integration, Query support
+- **OneDrive Features**: Selective sync, on-demand files, sharing, version history
+
 #### Session Summary:
-- Completed: Complete documentation infrastructure with all critical rules
+- Completed: Documentation infrastructure and functional requirements
 - Blocked: None
-- Next Steps: Continue planning phase - architecture refinement, API design, component specifications
+- Next Steps: Review functional requirements, then proceed to architecture design based on these functions
 
 ---
