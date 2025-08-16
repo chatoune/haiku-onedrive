@@ -209,6 +209,44 @@
    - Ensure proper system shutdown behavior
    - Validate attribute preservation
 
+### Rule 12: No Code Without Explicit Request (CRITICAL)
+**NO code implementation until specifically requested by the user.**
+
+1. **Planning Phase Requirements**:
+   - **DOCUMENTATION FIRST**: All planning, architecture, and design must be completed
+   - **NO IMPLEMENTATION**: Do not write any source code files (.cpp, .h, etc.)
+   - **DESIGN ONLY**: Focus on specifications, diagrams, and documentation
+   - **WAIT FOR REQUEST**: Only begin coding when user explicitly says to start
+
+2. **What IS Allowed Before Coding**:
+   - Architecture documentation and diagrams
+   - API design and specifications
+   - File structure planning
+   - Dependency analysis
+   - Risk assessment
+   - Development timeline planning
+   - Technology research
+
+3. **What is NOT Allowed**:
+   - Creating source files (.cpp, .h)
+   - Writing implementation code
+   - Creating build files (CMakeLists.txt, Makefile)
+   - Setting up project scaffolding
+   - Any executable code
+
+4. **User Request Triggers**:
+   - "Start coding"
+   - "Implement [component]"
+   - "Create the source files"
+   - "Begin development"
+   - Any explicit request to write code
+
+5. **Rationale**:
+   - Ensures thorough planning before implementation
+   - Prevents premature code that may need refactoring
+   - Allows user to review and approve all designs
+   - Maintains clear separation between planning and implementation phases
+
 ## 🚨 ENFORCEMENT
 
 **These rules are NON-NEGOTIABLE. Any session that doesn't follow these rules should be considered incomplete and potentially harmful to project continuity.**
@@ -232,5 +270,5 @@
 ---
 *These rules ensure project continuity across sessions and developers. Failure to follow these rules will result in lost work and confusion.*
 
-*Last Updated: 2025-08-16 13:28*
-*Version: 1.1.0*
+*Last Updated: 2025-08-16 13:32*
+*Version: 1.2.0*
