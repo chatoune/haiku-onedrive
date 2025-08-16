@@ -152,6 +152,28 @@ Each session entry follows this structure:
 - **Haiku-Specific Functions**: File attributes, Tracker integration, Query support
 - **OneDrive Features**: Selective sync, on-demand files, sharing, version history
 
+15. [13:37] - Committed functional requirements
+    - Files affected: FUNCTIONAL_REQUIREMENTS.md, SESSION_LOG.md, project_state.json
+    - Outcome: Complete functional specification documented
+    - Issues: None
+    - Commit: 82d4fcb
+
+16. [13:39] - Updated update mechanism to use HaikuDepot
+    - Files affected: FUNCTIONAL_REQUIREMENTS.md (modified)
+    - Outcome: Aligned with Haiku native package management
+    - Issues: None
+    - Changes:
+      * Removed built-in update checker requirement
+      * Added .hpkg package format requirement
+      * Updates will be managed through HaikuDepot
+
+#### Decisions Made:
+- **Function-First Approach**: Define what the application does before how it does it
+- **Phased Implementation**: 4 phases from MVP to Polish
+- **Haiku-Specific Functions**: File attributes, Tracker integration, Query support
+- **OneDrive Features**: Selective sync, on-demand files, sharing, version history
+- **Package Management**: Use HaikuDepot for updates instead of built-in updater
+
 #### Session Summary:
 - Completed: Documentation infrastructure and functional requirements
 - Blocked: None

@@ -234,13 +234,14 @@ This document defines all functions that the Haiku OneDrive client must provide,
   - Automatic recovery
 
 ### 7.3 Update Mechanism
-- **Function**: Keep application updated
-- **Description**: Check and install updates
+- **Function**: Application updates via HaikuDepot
+- **Description**: Updates managed through Haiku's native package system
 - **Requirements**:
-  - Check for updates
-  - Download updates
-  - Install updates
-  - Release notes
+  - Proper .hpkg package format
+  - Version information in package
+  - HaikuDepot integration
+  - Release notes in package description
+  - No built-in update checker needed
 
 ### 7.4 Diagnostics
 - **Function**: Troubleshooting support
@@ -298,7 +299,7 @@ This document defines all functions that the Haiku OneDrive client must provide,
 ### Phase 4 (Polish)
 - Storage management (5.2)
 - Battery optimization (5.3)
-- Update mechanism (7.3)
+- Package for HaikuDepot (7.3)
 - Diagnostics (7.4)
 - Advanced features
 

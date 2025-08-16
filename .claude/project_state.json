@@ -3,7 +3,7 @@
     "name": "Haiku OneDrive Client",
     "version": "0.0.1",
     "status": "initialization",
-    "last_updated": "2025-08-16T13:37:00Z",
+    "last_updated": "2025-08-16T13:40:00Z",
     "session_id": "001"
   },
   "current_state": {
@@ -44,6 +44,13 @@
       "Cache database format",
       "Sync algorithm specifics",
       "Conflict resolution strategy"
+    ],
+    "functional_decisions": [
+      {
+        "decision": "Package Updates via HaikuDepot",
+        "date": "2025-08-16",
+        "rationale": "Use native Haiku package management system instead of built-in updater"
+      }
     ]
   },
   "components": {
