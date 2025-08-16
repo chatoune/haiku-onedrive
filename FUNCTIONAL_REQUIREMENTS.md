@@ -183,6 +183,17 @@ This document defines all functions that the Haiku OneDrive client must provide,
   - Pause large transfers
   - Configurable behavior
 
+### 5.4 Parallel Synchronization
+- **Function**: Accelerate sync using multiple connections
+- **Description**: Utilize OneDrive's support for concurrent connections
+- **Requirements**:
+  - Connection pool management (up to 4 connections)
+  - Parallel uploads and downloads
+  - Intelligent request distribution
+  - Per-connection rate limiting
+  - Chunked transfers for large files
+  - Dynamic pool sizing based on bandwidth
+
 ## 6. User Interface Functions
 
 ### 6.1 Status Display
@@ -288,6 +299,7 @@ This document defines all functions that the Haiku OneDrive client must provide,
 - Preferences interface (6.2)
 - Bandwidth management (5.1)
 - Conflict resolution (2.4)
+- Parallel synchronization (5.4)
 
 ### Phase 3 (Advanced)
 - On-demand files (2.3)

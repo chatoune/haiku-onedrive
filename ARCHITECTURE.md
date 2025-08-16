@@ -225,25 +225,41 @@ enum {
 - `FileCache` - Content management
 - `SpaceManager` - Eviction policies
 
-#### 5. OneDrive API Client
-**Type**: Shared component  
+#### 5. OneDrive API Client with Connection Pool
+**Type**: Shared component with parallel connection support  
 **Responsibilities**:
 - Microsoft Graph API communication
-- Request queuing and rate limiting
+- Connection pool management (multiple concurrent connections)
+- Request queuing and intelligent dispatching
 - Error handling and retry logic
-- Response parsing
+- Response parsing and aggregation
 
 **Key Classes**:
 - `OneDriveClient` - Main API interface
+- `ConnectionPool` - Manages multiple BHttpSession instances
 - `GraphRequest : public BHttpRequest`
-- `RequestQueue` - Rate limiting
+- `RequestDispatcher` - Distributes requests across connections
 - `ResponseParser` - JSON handling
+
+**Connection Pool Design**:
+```cpp
+class ConnectionPool {
+    static const int MAX_CONNECTIONS = 4;  // Configurable
+    static const int MAX_CONCURRENT_UPLOADS = 3;
+    static const int MAX_CONCURRENT_DOWNLOADS = 4;
+    
+    BObjectList<BHttpSession> fSessions;
+    BLocker fLock;
+    // Load balancing across connections
+};
+```
 
 **API Endpoints**:
 - `/me/drive` - Drive information
 - `/me/drive/root/children` - List files
 - `/me/drive/items/{id}` - File operations
 - `/me/drive/items/{id}/content` - File content
+- `/me/drive/items/{id}/createUploadSession` - Large file uploads
 
 #### 6. Preferences Application
 **Type**: Standalone BApplication  
@@ -311,7 +327,7 @@ enum {
                                     └──────────────┘
 ```
 
-#### 2. File Synchronization Flow
+#### 2. File Synchronization Flow (With Parallel Connections)
 ```
 Local Changes:
 ┌────────────┐  BNodeMonitor  ┌──────────────┐  Queue  ┌─────────────┐
@@ -319,24 +335,35 @@ Local Changes:
 │   System   │   B_STAT_CHANGED│              │         │             │
 └────────────┘                 └──────────────┘         └──────┬──────┘
                                                                │
-                                                         ┌─────▼──────┐
-                                                         │ API Client │
-                                                         │            │
-                                                         └─────┬──────┘
-                                                               │ HTTPS
-                                                         ┌─────▼──────┐
-                                                         │ Graph API  │
-                                                         └────────────┘
+                                                    ┌──────────▼──────────┐
+                                                    │  Request Dispatcher │
+                                                    │  (Load Balancer)    │
+                                                    └─────────┬───────────┘
+                                                              │
+                                     ┌────────────────────────┼────────────────────────┐
+                                     │                        │                        │
+                               ┌─────▼──────┐          ┌─────▼──────┐          ┌─────▼──────┐
+                               │ Connection │          │ Connection │          │ Connection │
+                               │    Pool    │          │    Pool    │          │    Pool    │
+                               │ Session 1  │          │ Session 2  │          │ Session 3  │
+                               └─────┬──────┘          └─────┬──────┘          └─────┬──────┘
+                                     │ HTTPS                 │ HTTPS                 │ HTTPS
+                                     └───────────────────────┼───────────────────────┘
+                                                             │
+                                                       ┌─────▼──────┐
+                                                       │ Graph API  │
+                                                       │ (Parallel) │
+                                                       └────────────┘
 
 Remote Changes:
 ┌────────────┐    Poll/Delta    ┌──────────────┐  Queue  ┌─────────────┐
 │ Graph API  ├─────────────────>│Remote Monitor├────────>│ Sync Engine │
-│            │                   │              │         │             │
+│            │  (Multi-Session)  │              │         │             │
 └────────────┘                   └──────────────┘         └──────┬──────┘
                                                                  │
                                                            ┌─────▼──────┐
                                                            │Cache Mgr   │
-                                                           │            │
+                                                           │ (Parallel) │
                                                            └─────┬──────┘
                                                                  │
                                                            ┌─────▼──────┐
@@ -472,10 +499,12 @@ CREATE TABLE accounts (
    - File system watching
    - Change detection
 
-4. **Network Thread Pool**
-   - API requests
-   - Parallel uploads/downloads
-   - Rate limiting
+4. **Network Thread Pool (Enhanced)**
+   - Multiple concurrent API requests
+   - Parallel uploads/downloads using connection pool
+   - Intelligent request distribution
+   - Per-connection rate limiting
+   - Dynamic pool sizing based on bandwidth
 
 #### Thread Safety
 - All shared data protected by BLocker
@@ -514,11 +543,30 @@ CREATE TABLE accounts (
 - Configurable cache limits
 - Memory-mapped file operations
 
-#### Network Optimization
-- Delta sync for changes
-- Batch API operations
-- Compression for transfers
-- Bandwidth throttling
+#### Network Optimization (Enhanced)
+- **Parallel Operations**: Multiple concurrent uploads/downloads
+- **Connection Pooling**: Reuse HTTP connections across requests
+- **Smart Scheduling**: Prioritize small files for quick wins
+- **Chunked Transfers**: Split large files across connections
+- **Delta Sync**: Only transfer changed portions
+- **Batch API Operations**: Combine multiple operations per request
+- **Compression**: gzip for API responses
+- **Bandwidth Management**: 
+  - Per-connection throttling
+  - Total bandwidth limits
+  - Dynamic pool sizing based on available bandwidth
+  
+**Parallel Sync Strategy**:
+```cpp
+// Example configuration
+struct SyncConfig {
+    int maxConnections = 4;        // Total connections
+    int maxUploads = 3;           // Concurrent uploads
+    int maxDownloads = 4;         // Concurrent downloads
+    int chunkSize = 4 * 1024 * 1024;  // 4MB chunks
+    int smallFileThreshold = 1024 * 1024;  // 1MB
+};
+```
 
 #### Power Management
 - Detect system power state
