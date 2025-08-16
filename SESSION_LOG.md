@@ -239,8 +239,30 @@ Each session entry follows this structure:
       * Organized diagrams by function
       * Updated ARCHITECTURE.md to reference new file
 
+23. [13:57] - Committed diagram improvements
+    - Files affected: ARCHITECTURE_DIAGRAMS.md (new), ARCHITECTURE.md (modified), SESSION_LOG.md
+    - Outcome: Better diagram readability
+    - Issues: None
+    - Commit: 66500c6
+
+24. [13:58] - Tested Mermaid diagrams
+    - Files affected: ARCHITECTURE_DIAGRAMS_MERMAID.md (created and removed)
+    - Outcome: Mermaid does not render properly in user's environment
+    - Issues: Mermaid syntax not supported
+    - Decision: Use ASCII diagrams only
+
+25. [14:00] - Added ASCII diagram rule
+    - Files affected: PROJECT_RULES.md (modified)
+    - Outcome: Rule 13 added mandating ASCII-only diagrams
+    - Issues: None
+    - Guidelines:
+      * No Mermaid syntax
+      * No complex Unicode characters
+      * Simple ASCII only (-, |, +, >, <, ^, v)
+      * Optimized for monospace fonts
+
 #### Session Summary:
-- Completed: Documentation infrastructure, functional requirements, enhanced architecture, and readable diagrams
+- Completed: Documentation infrastructure, functional requirements, enhanced architecture, ASCII diagrams
 - Blocked: None
 - Next Steps: Review architecture, then create API specifications and component interfaces
 

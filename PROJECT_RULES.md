@@ -247,6 +247,48 @@
    - Allows user to review and approve all designs
    - Maintains clear separation between planning and implementation phases
 
+### Rule 13: ASCII Diagrams Only (REQUIRED)
+**Use simple ASCII diagrams for all technical documentation.**
+
+1. **Diagram Standards**:
+   - **NO MERMAID**: Mermaid syntax not supported in environment
+   - **NO COMPLEX CHARACTERS**: Avoid box-drawing unicode characters
+   - **SIMPLE ASCII**: Use only basic characters (-, |, +, *, >, <, ^, v)
+   - **MONOSPACE OPTIMIZED**: Design for fixed-width fonts
+
+2. **Allowed Characters**:
+   ```
+   Lines:     - | + 
+   Arrows:    > < ^ v
+   Corners:   +
+   Emphasis:  * # =
+   ```
+
+3. **Diagram Types**:
+   - Flow diagrams with simple arrows
+   - Tree structures with indentation
+   - Box diagrams using dashes and pipes
+   - Sequence flows with arrow indicators
+
+4. **Formatting Guidelines**:
+   - Keep diagrams compact and readable
+   - Use consistent spacing (tabs of 8)
+   - Test readability with Noto Sans 10pt
+   - Avoid elaborate ASCII art
+
+5. **Example**:
+   ```
+   Component A
+        |
+        v
+   Component B --> Component C
+        |              |
+        +------+-------+
+               |
+               v
+          Component D
+   ```
+
 ## 🚨 ENFORCEMENT
 
 **These rules are NON-NEGOTIABLE. Any session that doesn't follow these rules should be considered incomplete and potentially harmful to project continuity.**
@@ -270,5 +312,5 @@
 ---
 *These rules ensure project continuity across sessions and developers. Failure to follow these rules will result in lost work and confusion.*
 
-*Last Updated: 2025-08-16 13:32*
-*Version: 1.2.0*
+*Last Updated: 2025-08-16 14:00*
+*Version: 1.3.0*
