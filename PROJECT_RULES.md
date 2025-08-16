@@ -171,6 +171,44 @@
    - Update all documentation
    - Leave clear next steps
 
+### Rule 11: Haiku-Native Development (MANDATORY)
+**This project MUST be a true Haiku OS native application using Haiku APIs wherever possible.**
+
+1. **API Usage Priority**:
+   - **ALWAYS** use Haiku native APIs before considering external libraries
+   - **PREFER** BeAPI/Haiku Kit classes over POSIX/standard C++
+   - **SEARCH** Haiku headers before implementing custom functionality
+   - **INTEGRATE** with Haiku system services and patterns
+
+2. **Native Components to Use**:
+   - **UI**: Use native BWindow, BView, BControl classes
+   - **Threading**: Use BLooper, BHandler, BMessage system
+   - **Networking**: Use BNetworkKit, BHttpRequest
+   - **Storage**: Use BFile, BDirectory, BPath, BEntry
+   - **Settings**: Use BMessage for preferences, Haiku settings directory
+   - **IPC**: Use BMessage and scripting protocol
+   - **Graphics**: Use native drawing APIs, HVIF for icons
+
+3. **Development Guidelines**:
+   - Follow Haiku coding style guidelines
+   - Use Haiku-specific build tools when appropriate
+   - Integrate with Tracker, Deskbar, and other system components
+   - Respect Haiku's unified preferences and theming
+   - Use native file attributes and queries
+
+4. **External Libraries**:
+   - Only use when NO Haiku alternative exists
+   - Document why Haiku API was insufficient
+   - Prefer libraries already in HaikuPorts
+   - Minimize external dependencies
+
+5. **Testing Native Integration**:
+   - Test with different Haiku themes
+   - Verify Tracker add-on functionality
+   - Check replicant support where applicable
+   - Ensure proper system shutdown behavior
+   - Validate attribute preservation
+
 ## 🚨 ENFORCEMENT
 
 **These rules are NON-NEGOTIABLE. Any session that doesn't follow these rules should be considered incomplete and potentially harmful to project continuity.**
@@ -194,5 +232,5 @@
 ---
 *These rules ensure project continuity across sessions and developers. Failure to follow these rules will result in lost work and confusion.*
 
-*Last Updated: [Session start timestamp]*
-*Version: 1.0.0*
+*Last Updated: 2025-08-16 13:28*
+*Version: 1.1.0*

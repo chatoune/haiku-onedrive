@@ -25,30 +25,50 @@ This document captures all architectural decisions, design patterns, and technic
 
 ---
 
-### ADR-002: Technology Stack (PENDING)
-**Status**: Proposed  
+### ADR-002: Haiku-Native Development Approach
+**Status**: Accepted  
 **Date**: 2025-08-16
 
-**Context**: Need to choose appropriate technologies for Haiku native development.
+**Context**: This project must be a true Haiku OS native application that integrates seamlessly with the system and follows Haiku design principles.
 
-**Decision**: TBD
+**Decision**: Use Haiku native APIs exclusively wherever possible, only falling back to external libraries when no native alternative exists.
 
-**Options Under Consideration**:
+**Consequences**:
+- Positive: Perfect system integration and native look/feel
+- Positive: Smaller binary size and fewer dependencies
+- Positive: Better performance through native APIs
+- Positive: Consistent with other Haiku applications
+- Negative: May require more research into Haiku-specific APIs
+- Negative: Less portable to other platforms
+
+**Alternatives Considered**:
+- Cross-platform approach: Rejected to ensure native quality
+- Qt-based UI: Rejected in favor of native BWindow/BView
+- Generic C++ with POSIX: Rejected to leverage Haiku features
+
+---
+
+### ADR-003: Technology Stack
+**Status**: Accepted  
+**Date**: 2025-08-16
+
+**Context**: Based on ADR-002's native-first approach, we need to select specific technologies.
+
+**Decision**: 
 1. **Programming Language**: C++ (Haiku native)
-2. **Build System**: 
-   - CMake (cross-platform, modern)
-   - Jam (Haiku native)
-3. **HTTP Client**:
-   - Haiku's native network kit
-   - libcurl
-4. **JSON Parser**:
-   - Haiku's native JSON support
-   - RapidJSON
-   - nlohmann/json
-5. **Testing Framework**:
-   - Native Haiku testing
-   - Google Test
-   - Catch2
+2. **Build System**: CMake (with Haiku-specific configuration)
+3. **UI Framework**: Native Haiku Interface Kit (BWindow, BView, etc.)
+4. **Threading**: BLooper/BHandler/BMessage system
+5. **Networking**: BNetworkKit with BHttpRequest
+6. **Storage**: BFile, BDirectory, extended attributes
+7. **IPC**: BMessage-based messaging
+8. **JSON**: Haiku's native JSON support if available, minimal custom parser if needed
+9. **Testing**: Native Haiku testing patterns
+
+**Consequences**:
+- All components will use native Haiku patterns
+- Maximum integration with system services
+- Minimal external dependencies
 
 ---
 

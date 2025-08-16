@@ -3,7 +3,7 @@
     "name": "Haiku OneDrive Client",
     "version": "0.0.1",
     "status": "initialization",
-    "last_updated": "2025-08-16T13:22:00Z",
+    "last_updated": "2025-08-16T13:29:00Z",
     "session_id": "001"
   },
   "current_state": {
@@ -24,14 +24,23 @@
     "blocking_issues": []
   },
   "architecture": {
-    "decided": [],
+    "decided": [
+      {
+        "decision": "Haiku-Native Development",
+        "adr": "ADR-002",
+        "summary": "Use Haiku native APIs exclusively where possible"
+      },
+      {
+        "decision": "Technology Stack",
+        "adr": "ADR-003",
+        "summary": "C++, CMake, Native UI Kit, BLooper/BHandler, BNetworkKit"
+      }
+    ],
     "pending_decisions": [
-      "Programming language (C++ assumed for Haiku)",
-      "Build system (CMake vs Jam)",
-      "Testing framework",
-      "API architecture (REST vs GraphQL client)",
-      "Threading model",
-      "UI framework approach"
+      "OAuth2 implementation details",
+      "Cache database format",
+      "Sync algorithm specifics",
+      "Conflict resolution strategy"
     ]
   },
   "components": {
