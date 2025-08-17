@@ -63,6 +63,10 @@ private:
 	status_t ExchangeCodeForToken(const char* code);
 	status_t ParseTokenResponse(const BString& response);
 	
+	// Helper methods
+	void GenerateRandomState(BString& state);
+	void UrlEncode(const BString& input, BString& output);
+	
 	// Token storage
 	status_t StoreTokens();
 	status_t LoadTokens();
@@ -87,6 +91,8 @@ private:
 	thread_id fServerThread;
 	int32 fServerPort;
 	bool fAuthInProgress;
+	BString fClientId;
+	BString fAuthState;  // For CSRF protection
 	
 	// HTTP session for API calls (placeholder for now)
 	void* fHttpSession;

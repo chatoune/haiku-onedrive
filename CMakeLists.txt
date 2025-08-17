@@ -12,9 +12,23 @@ find_library(BNETAPI_LIBRARY bnetapi)
 find_library(NETSERVICES2_LIBRARY netservices2)
 find_library(TRACKER_LIBRARY tracker)
 
+# Find external libraries
+find_library(SQLITE3_LIBRARY sqlite3)
+find_library(SSL_LIBRARY ssl)
+find_library(CRYPTO_LIBRARY crypto)
+
 # Check if required libraries are found
 if(NOT BE_LIBRARY)
     message(FATAL_ERROR "Could not find be library")
+endif()
+if(NOT NETWORK_LIBRARY)
+    message(FATAL_ERROR "Could not find network library")
+endif()
+if(NOT SQLITE3_LIBRARY)
+    message(FATAL_ERROR "Could not find sqlite3 library - run: pkgman install sqlite")
+endif()
+if(NOT SSL_LIBRARY OR NOT CRYPTO_LIBRARY)
+    message(FATAL_ERROR "Could not find OpenSSL libraries - run: pkgman install openssl")
 endif()
 
 # Include directories

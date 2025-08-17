@@ -6,7 +6,16 @@
       "Bash(./tests/api/AuthenticationServiceTest)",
       "Bash(ls:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(find:*)",
+      "Bash(mkdir:*)",
+      "Bash(cmake:*)",
+      "Bash(make:*)",
+      "Bash(./tests/TestRunner)",
+      "Bash(pkgman search:*)",
+      "Bash(pkgman info:*)",
+      "Bash(pkg-config:*)",
+      "Bash(grep:*)"
     ],
     "deny": []
   }

@@ -1,0 +1,44 @@
+name			onedrive
+version			0.1.0~git
+architecture		x86_64
+summary			"Native OneDrive client for Haiku"
+description		"A native Haiku application that provides seamless integration with \
+Microsoft OneDrive cloud storage. Features include bidirectional file \
+synchronization, Tracker integration, and native Haiku file attribute support."
+
+packager		"OneDrive for Haiku Team"
+vendor			"Haiku OneDrive Project"
+
+copyrights {
+	"2025 Haiku OneDrive Contributors"
+}
+
+licenses {
+	MIT
+}
+
+provides {
+	onedrive = 0.1.0~git
+	app:OneDrive = 0.1.0~git
+	addon:OneDrive = 0.1.0~git
+	cmd:onedrive = 0.1.0~git
+}
+
+requires {
+	haiku >= r1~beta4_hrev57937
+	lib:libnetwork >= r1~beta4_hrev57937
+	lib:libcrypto >= 3.0.11
+	lib:libssl >= 3.0.11
+	lib:libsqlite3 >= 3.43.1
+}
+
+user_settings_files {
+	"settings/OneDrive directory keep-old"
+}
+
+post_install_scripts {
+	boot/post-install/onedrive_post_install.sh
+}
+
+# Note: We do NOT use liboauth as it only supports OAuth 1.0
+# OAuth 2.0 is implemented using native Haiku HTTP APIs

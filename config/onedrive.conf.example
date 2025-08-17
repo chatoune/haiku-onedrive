@@ -1,0 +1,33 @@
+# OneDrive Client Configuration Example
+# Copy this file to ~/config/settings/OneDrive/onedrive.conf and update with your values
+
+[authentication]
+# Client ID from your Azure AD app registration
+# Register at: https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
+client_id = YOUR_CLIENT_ID_HERE
+
+# Tenant ID (use "common" for personal and work accounts)
+tenant_id = common
+
+# OAuth2 endpoints (usually don't need to change these)
+auth_endpoint = https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+token_endpoint = https://login.microsoftonline.com/common/oauth2/v2.0/token
+
+# Redirect URI (must match your app registration)
+redirect_uri = http://localhost:8080/auth/callback
+
+# Scopes requested
+scopes = files.readwrite.all offline_access
+
+[network]
+# Local server port for OAuth redirect
+redirect_port = 8080
+
+# Connection pool settings
+max_connections = 4
+max_concurrent_uploads = 3
+max_concurrent_downloads = 4
+
+[storage]
+# Cache directory (relative to ~/config/settings/OneDrive/)
+cache_dir = cache
